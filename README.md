@@ -1,4 +1,4 @@
-# Go SDK for KuCoin API
+# Go SDK for KuMex API
 > The detailed document [https://docs.kumex.com](https://docs.kumex.com), in order to receive the latest API change notifications, please `Watch` this repository.
 
 [![Latest Version](https://img.shields.io/github/release/Kucoin/kumex-go-sdk.svg)](https://github.com/Kucoin/kumex-go-sdk/releases)
