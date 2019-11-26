@@ -21,8 +21,8 @@ go get github.com/Kucoin/kumex-go-sdk
 
 | Environment | BaseUri |
 | -------- | -------- |
-| *Production* | `https://api.kumex.com(DEFAULT)` `https://openapi-v2.kumex.com` `https://api.kcs.top` |
-| *Sandbox* | `https://openapi-sandbox.kumex.com` |
+| *Production* | `https://api.kumex.com(DEFAULT)` `https://api.kumex.top` |
+| *Sandbox* | `https://sandbox.kumex.com` |
 
 ### Create ApiService
 
@@ -323,7 +323,7 @@ for {
 
 ```shell
 # Add your API configuration items into the environmental variable first
-export API_BASE_URI=https://openapi-v2.kumex.com
+export API_BASE_URI=https://api.kumex.com
 export API_KEY=key
 export API_SECRET=secret
 export API_PASSPHRASE=passphrase
