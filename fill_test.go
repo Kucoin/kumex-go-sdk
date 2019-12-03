@@ -25,8 +25,6 @@ func TestApiService_Fills(t *testing.T) {
 			t.Error("Empty key 'tradeId'")
 		case f.OrderId == "":
 			t.Error("Empty key 'orderId'")
-		case f.Type == "":
-			t.Error("Empty key 'type'")
 		case f.Side == "":
 			t.Error("Empty key 'side'")
 		}
@@ -53,8 +51,6 @@ func TestApiService_RecentFills(t *testing.T) {
 			t.Error("Empty key 'tradeId'")
 		case f.OrderId == "":
 			t.Error("Empty key 'orderId'")
-		case f.Type == "":
-			t.Error("Empty key 'type'")
 		case f.Side == "":
 			t.Error("Empty key 'side'")
 		}
