@@ -20,8 +20,8 @@ func TestApiService_Withdrawals(t *testing.T) {
 	for _, w := range ws {
 		t.Log(ToJsonString(w))
 		switch {
-		case w.Id == "":
-			t.Error("Empty key 'id'")
+		case w.WithdrawalId == "":
+			t.Error("Empty key 'withdrawalId'")
 		case w.Address == "":
 			t.Error("Empty key 'address'")
 		case w.Currency == "":
@@ -34,48 +34,13 @@ func TestApiService_Withdrawals(t *testing.T) {
 			t.Error("Empty key 'status'")
 		case w.CreatedAt == 0:
 			t.Error("Empty key 'createdAt'")
-		case w.UpdatedAt == 0:
-			t.Error("Empty key 'updatedAt'")
-		}
-	}
-}
-
-func TestApiService_V1Withdrawals(t *testing.T) {
-	t.SkipNow()
-	s := NewApiServiceFromEnv()
-	p := map[string]string{}
-	pp := &PaginationParam{CurrentPage: 1, PageSize: 10}
-	rsp, err := s.V1Withdrawals(p, pp)
-	if err != nil {
-		t.Fatal(err)
-	}
-	ws := V1WithdrawalsModel{}
-	if _, err := rsp.ReadPaginationData(&ws); err != nil {
-		t.Fatal(err)
-	}
-
-	for _, w := range ws {
-		t.Log(ToJsonString(w))
-		switch {
-		case w.Address == "":
-			t.Error("Empty key 'address'")
-		case w.Currency == "":
-			t.Error("Empty key 'currency'")
-		case w.Amount == "":
-			t.Error("Empty key 'amount'")
-		case w.Status == "":
-			t.Error("Empty key 'status'")
-		case w.WalletTxId == "":
-			t.Error("Empty key 'walletTxId'")
-		case w.CreateAt == 0:
-			t.Error("Empty key 'createAt'")
 		}
 	}
 }
 
 func TestApiService_WithdrawalQuotas(t *testing.T) {
 	s := NewApiServiceFromEnv()
-	rsp, err := s.WithdrawalQuotas("BTC", "")
+	rsp, err := s.WithdrawalQuotas("XBT")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -93,12 +58,14 @@ func TestApiService_WithdrawalQuotas(t *testing.T) {
 		t.Error("Empty key 'remainAmount'")
 	case wq.WithdrawMinSize == "":
 		t.Error("Empty key 'withdrawMinSize'")
-	case wq.LimitBTCAmount == "":
-		t.Error("Empty key 'limitBTCAmount'")
+	case wq.LimitAmount == "":
+		t.Error("Empty key 'limitAmount'")
 	case wq.InnerWithdrawMinFee == "":
 		t.Error("Empty key 'innerWithdrawMinFee'")
 	case wq.WithdrawMinFee == "":
 		t.Error("Empty key 'withdrawMinFee'")
+	case wq.UsedAmount == "":
+		t.Error("Empty key 'usedAmount'")
 	case wq.Precision == 0:
 		t.Error("Empty key 'precision'")
 	}
@@ -108,7 +75,7 @@ func TestApiService_ApplyWithdrawal(t *testing.T) {
 	t.SkipNow()
 
 	s := NewApiServiceFromEnv()
-	rsp, err := s.ApplyWithdrawal("BTC", "xx", "0.01", map[string]string{})
+	rsp, err := s.ApplyWithdrawal("XBT", "xx", "0.01", map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
