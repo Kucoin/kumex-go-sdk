@@ -44,6 +44,8 @@ type Level2MessageQueryModel struct {
 	Change   string `json:"change"`
 }
 
+type Level2MessageQueryListModel []*Level2MessageQueryModel
+
 func (as *ApiService) Level2MessageQuery(symbol string, start, end int64) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/level2/message/query", map[string]string{
 		"symbol": symbol,
@@ -78,6 +80,8 @@ type Level3MessageQueryModel struct {
 	Ts        int64  `json:"ts"`
 }
 
+type Level3MessageQueryListModel []*Level3MessageQueryModel
+
 func (as *ApiService) Level3MessageQuery(symbol string, start, end int64) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/level3/message/query", map[string]string{
 		"symbol": symbol,
@@ -100,120 +104,86 @@ type TradeHistoryModel struct {
 }
 
 // A TradeHistoriesModel is the set of *TradeHistoryModel.
-type TradeHistoriesModel []*TradeHistoryModel
+type TradesHistoryModel []*TradeHistoryModel
 
 // TradeHistories returns a list the latest trades for a symbol.
-func (as *ApiService) TradeHistories(symbol string) (*ApiResponse, error) {
+func (as *ApiService) TradeHistory(symbol string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/trade/history", map[string]string{"symbol": symbol})
 	return as.Call(req)
 }
 
-
-// A TickerModel represents a market ticker for all trading pairs in the market (including 24h volume).
-type TickerModel struct {
+type InterestModel struct {
 	Symbol      string `json:"symbol"`
-	Buy         string `json:"buy"`
-	Sell        string `json:"sell"`
-	ChangeRate  string `json:"changeRate"`
-	ChangePrice string `json:"changePrice"`
-	High        string `json:"high"`
-	Low         string `json:"low"`
-	Vol         string `json:"vol"`
-	VolValue    string `json:"volValue"`
-	Last        string `json:"last"`
+	Granularity string `json:"granularity"`
+	TimePoint   string `json:"timePoint"`
+	Value       string `json:"value"`
 }
 
-//// A TickersModel is the set of *MarketTickerModel.
-//type TickersModel []*TickerModel
-//
-//// TickersResponseModel represents the response model of MarketTickers().
-//type TickersResponseModel struct {
-//	Time    int64        `json:"time"`
-//	Tickers TickersModel `json:"ticker"`
-//}
-//
-//// Tickers returns all tickers as TickersResponseModel for all trading pairs in the market (including 24h volume).
-//func (as *ApiService) Tickers(symbol string) (*ApiResponse, error) {
-//	req := NewRequest(http.MethodGet, "api/v1/ticker", map[string]string{"symbol": symbol})
-//	return as.Call(req)
-//}
+type InterestsModel []*InterestModel
 
-// A Stats24hrModel represents 24 hr stats for the symbol.
-// Volume is in base currency units.
-// Open, high, low are in quote currency units.
-type Stats24hrModel struct {
+// Deposits returns a list of deposit.
+func (as *ApiService) InterestQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
+	pagination.ReadParam(params)
+	req := NewRequest(http.MethodGet, "/api/v1/interest/query", params)
+	return as.Call(req)
+}
+
+type IndexModel struct {
+	Symbol          string     `json:"symbol"`
+	Granularity     string     `json:"granularity"`
+	TimePoint       string     `json:"timePoint"`
+	Value           string     `json:"value"`
+	DecomposionList [][]string `json:"decomposionList"`
+}
+
+type IndexQueryModel []*IndexModel
+
+// Deposits returns a list of deposit.
+func (as *ApiService) IndexQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
+	pagination.ReadParam(params)
+	req := NewRequest(http.MethodGet, "/api/v1/interest/query", params)
+	return as.Call(req)
+}
+
+type MarkPriceModel struct {
 	Symbol      string `json:"symbol"`
-	ChangeRate  string `json:"changeRate"`
-	ChangePrice string `json:"changePrice"`
-	Open        string `json:"open"`
-	Close       string `json:"close"`
-	High        string `json:"high"`
-	Low         string `json:"low"`
-	Vol         string `json:"vol"`
-	VolValue    string `json:"volValue"`
+	Granularity string `json:"granularity"`
+	TimePoint   string `json:"timePoint"`
+	Value       string `json:"value"`
+	IndexPrice  string `json:"indexPrice"`
 }
 
-// Stats24hr returns 24 hr stats for the symbol. volume is in base currency units. open, high, low are in quote currency units.
-func (as *ApiService) Stats24hr(symbol string) (*ApiResponse, error) {
-	req := NewRequest(http.MethodGet, "/api/v1/market/stats", map[string]string{"symbol": symbol})
+func (as *ApiService) MarkPrice(Symbol string) (*ApiResponse, error) {
+	req := NewRequest(http.MethodGet, "/api/v1/mark-price/"+Symbol+"/current", nil)
 	return as.Call(req)
 }
 
-// Markets returns the transaction currencies for the entire trading market.
-func (as *ApiService) Markets() (*ApiResponse, error) {
-	req := NewRequest(http.MethodGet, "/api/v1/markets", nil)
+type PremiumModel struct {
+	Symbol          string     `json:"symbol"`
+	Granularity     string     `json:"granularity"`
+	TimePoint       string     `json:"timePoint"`
+	Value           string     `json:"value"`
+}
+
+type PremiumsModel []*PremiumModel
+
+// Deposits returns a list of deposit.
+func (as *ApiService) PremiumQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
+	pagination.ReadParam(params)
+	req := NewRequest(http.MethodGet, "/api/v1/premium/query", params)
 	return as.Call(req)
 }
 
-// A PartOrderBookModel represents a list of open orders for a symbol, a part of Order Book within 100 depth for each side(ask or bid).
-type PartOrderBookModel struct {
-	Sequence string     `json:"sequence"`
-	Bids     [][]string `json:"bids"`
-	Asks     [][]string `json:"asks"`
+
+type FundingRateModel struct {
+	Symbol      string `json:"symbol"`
+	Granularity string `json:"granularity"`
+	TimePoint   string `json:"timePoint"`
+	Value       string `json:"value"`
+	PredictedValue  string `json:"predictedValue"`
 }
 
-// AggregatedPartOrderBook returns a list of open orders(aggregated) for a symbol.
-func (as *ApiService) AggregatedPartOrderBook(symbol string, depth int64) (*ApiResponse, error) {
-	req := NewRequest(http.MethodGet, "/api/v1/market/orderbook/level2_"+IntToString(depth), map[string]string{"symbol": symbol})
-	return as.Call(req)
-}
-
-// A FullOrderBookModel represents a list of open orders for a symbol, with full depth.
-type FullOrderBookModel struct {
-	Sequence string     `json:"sequence"`
-	Bids     [][]string `json:"bids"`
-	Asks     [][]string `json:"asks"`
-}
-
-// AggregatedFullOrderBook returns a list of open orders(aggregated) for a symbol.
-func (as *ApiService) AggregatedFullOrderBook(symbol string) (*ApiResponse, error) {
-	req := NewRequest(http.MethodGet, "/api/v2/market/orderbook/level2", map[string]string{"symbol": symbol})
-	return as.Call(req)
-}
-
-// AtomicFullOrderBook returns a list of open orders for a symbol.
-// Level-3 order book includes all bids and asks (non-aggregated, each item in Level-3 means a single order).
-func (as *ApiService) AtomicFullOrderBook(symbol string) (*ApiResponse, error) {
-	req := NewRequest(http.MethodGet, "/api/v1/market/orderbook/level3", map[string]string{"symbol": symbol})
-	return as.Call(req)
-}
-
-// KLineModel represents the k lines for a symbol.
-// Rates are returned in grouped buckets based on requested type.
-type KLineModel []string
-
-// A KLinesModel is the set of *KLineModel.
-type KLinesModel []*KLineModel
-
-// KLines returns the k lines for a symbol.
-// Data are returned in grouped buckets based on requested type.
-// Parameter #2 typo is the type of candlestick patterns.
-func (as *ApiService) KLines(symbol, typo string, startAt, endAt int64) (*ApiResponse, error) {
-	req := NewRequest(http.MethodGet, "/api/v1/market/candles", map[string]string{
-		"symbol":  symbol,
-		"type":    typo,
-		"startAt": IntToString(startAt),
-		"endAt":   IntToString(endAt),
-	})
+func (as *ApiService) FundingRate(Symbol string) (*ApiResponse, error) {
+	req := NewRequest(http.MethodGet, "/api/v1/funding-rate/"+Symbol+"/current", nil)
 	return as.Call(req)
 }
