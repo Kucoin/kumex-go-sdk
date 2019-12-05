@@ -74,7 +74,7 @@ func TestApiService_autoDepositStatus(t *testing.T) {
 	t.Log(ToJsonString(o))
 	switch {
 	case o.Id == "":
-		t.Error("Empty key 'OrderId'")
+		t.Error("Empty key 'id'")
 	}
 }
 
@@ -98,6 +98,6 @@ func TestApiService_DepositMargin(t *testing.T) {
 	t.Log(ToJsonString(o))
 	switch {
 	case o.Id == "":
-		t.Error("Empty key 'OrderId'")
+		t.Error("Empty key 'id'")
 	}
 }
