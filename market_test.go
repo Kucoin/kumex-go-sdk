@@ -16,7 +16,7 @@ func TestApiService_TickerLevel1(t *testing.T) {
 	}
 	t.Log(ToJsonString(tk))
 	switch {
-	case tk.Sequence == "":
+	case tk.Sequence <= 0:
 		t.Error("Empty key 'sequence'")
 	case tk.Price == "":
 		t.Error("Empty key 'price'")
@@ -24,11 +24,11 @@ func TestApiService_TickerLevel1(t *testing.T) {
 		t.Error("Empty key 'Symbol'")
 	case tk.BestBidPrice == "":
 		t.Error("Empty key 'bestBidPrice'")
-	case tk.BestBidSize == "":
+	case tk.BestBidSize <= 0 :
 		t.Error("Empty key 'bestBidSize'")
 	case tk.BestAskPrice == "":
 		t.Error("Empty key 'bestAskPrice'")
-	case tk.BestAskSize == "":
+	case tk.BestAskSize <= 0:
 		t.Error("Empty key 'bestAskSize'")
 	}
 }
@@ -45,14 +45,18 @@ func TestApiService_Level2Snapshot(t *testing.T) {
 	}
 	t.Log(ToJsonString(tk))
 	switch {
-	case tk.Sequence == "":
+	case tk.Sequence <= 0:
 		t.Error("Empty key 'sequence'")
-	case tk.Asks == nil:
+	case len(tk.Asks) == 0:
 		t.Error("Empty key 'asks'")
+	case len(tk.Asks[0]) != 2:
+		t.Error("Invalid ask length")
 	case tk.Symbol == "":
 		t.Error("Empty key 'Symbol'")
-	case tk.Bids == nil:
+	case len(tk.Bids) == 0:
 		t.Error("Empty key 'bids'")
+	case len(tk.Bids[0]) != 2:
+		t.Error("Invalid bid length")
 	}
 }
 
@@ -70,7 +74,7 @@ func TestApiService_Level2MessageQuery(t *testing.T) {
 	for _, c := range l {
 		t.Log(ToJsonString(c))
 		switch {
-		case c.Sequence == "":
+		case c.Sequence <= 0:
 			t.Error("Empty key 'sequence'")
 		case c.Symbol == "":
 			t.Error("Empty key 'symbol'")
@@ -94,14 +98,18 @@ func TestApiService_Level3Snapshot(t *testing.T) {
 	}
 	t.Log(ToJsonString(tk))
 	switch {
-	case tk.Sequence == "":
+	case tk.Sequence <= 0:
 		t.Error("Empty key 'sequence'")
-	case tk.Asks == nil:
-		t.Error("Empty key 'asks'")
 	case tk.Symbol == "":
 		t.Error("Empty key 'Symbol'")
-	case tk.Bids == nil:
+	case len(tk.Asks) == 0:
+		t.Error("Empty key 'asks'")
+	case len(tk.Asks[0]) != 3:
+		t.Error("Invalid ask length")
+	case len(tk.Bids) == 0:
 		t.Error("Empty key 'bids'")
+	case len(tk.Bids[0]) != 3:
+		t.Error("Invalid bid length")
 	}
 }
 
@@ -119,7 +127,7 @@ func TestApiService_Level3MessageQuery(t *testing.T) {
 	for _, c := range l {
 		t.Log(ToJsonString(c))
 		switch {
-		case c.Sequence == "":
+		case c.Sequence <= 0:
 			t.Error("Empty key 'sequence'")
 		case c.Symbol == "":
 			t.Error("Empty key 'symbol'")
@@ -147,13 +155,13 @@ func TestApiService_TradeHistory(t *testing.T) {
 	for _, c := range l {
 		t.Log(ToJsonString(c))
 		switch {
-		case c.Sequence == "":
+		case c.Sequence <= 0:
 			t.Error("Empty key 'sequence'")
 		case c.TradeId == "":
 			t.Error("Empty key 'tradeId'")
 		case c.Price == "":
 			t.Error("Empty key 'price'")
-		case c.Size == "":
+		case c.Size <= 0:
 			t.Error("Empty key 'size'")
 		case c.Side == "":
 			t.Error("Empty key 'side'")
@@ -164,7 +172,7 @@ func TestApiService_TradeHistory(t *testing.T) {
 func TestApiService_InterestQuery(t *testing.T) {
 	s := NewApiServiceFromEnv()
 	p := map[string]string{}
-	p["symbol"] = "XBTUSDM"
+	p["symbol"] = ".XBTINT"
 	pp := &PaginationParam{CurrentPage: 1, PageSize: 10}
 	rsp, err := s.InterestQuery(p, pp)
 	if err != nil {
@@ -179,11 +187,11 @@ func TestApiService_InterestQuery(t *testing.T) {
 		switch {
 		case c.Symbol == "":
 			t.Error("Empty key 'symbol'")
-		case c.Granularity == "":
+		case c.Granularity <= 0:
 			t.Error("Empty key 'granularity'")
-		case c.TimePoint == "":
+		case c.TimePoint == 0:
 			t.Error("Empty key 'timePoint'")
-		case c.Value == "":
+		case c.Value <= 0:
 			t.Error("Empty key 'value'")
 		}
 	}
@@ -199,7 +207,7 @@ func TestApiService_IndexQuery(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	l := InterestsModel{}
+	l := IndexQueryModel{}
 	if err := rsp.ReadData(&l); err != nil {
 		t.Fatal(err)
 	}
@@ -208,11 +216,11 @@ func TestApiService_IndexQuery(t *testing.T) {
 		switch {
 		case c.Symbol == "":
 			t.Error("Empty key 'symbol'")
-		case c.Granularity == "":
+		case c.Granularity <= 0:
 			t.Error("Empty key 'granularity'")
-		case c.TimePoint == "":
+		case c.TimePoint <= 0:
 			t.Error("Empty key 'timePoint'")
-		case c.Value == "":
+		case c.Value <= 0:
 			t.Error("Empty key 'value'")
 		}
 	}
@@ -230,13 +238,13 @@ func TestApiService_MarkPrice(t *testing.T) {
 	}
 	t.Log(ToJsonString(tk))
 	switch {
-	case tk.Granularity == "":
+	case tk.Granularity <= 0:
 		t.Error("Empty key 'granularity'")
-	case tk.TimePoint == "":
+	case tk.TimePoint <= 0:
 		t.Error("Empty key 'timePoint'")
 	case tk.Symbol == "":
 		t.Error("Empty key 'symbol'")
-	case tk.IndexPrice == "":
+	case tk.IndexPrice <= 0:
 		t.Error("Empty key 'indexPrice'")
 	}
 }

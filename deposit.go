@@ -39,6 +39,6 @@ type DepositsModel []*DepositModel
 // Deposits returns a list of deposit.
 func (as *ApiService) Deposits(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
 	pagination.ReadParam(params)
-	req := NewRequest(http.MethodGet, "/api/v1/deposits-list", params)
+	req := NewRequest(http.MethodGet, "/api/v1/deposit-list", params)
 	return as.Call(req)
 }

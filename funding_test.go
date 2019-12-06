@@ -5,7 +5,7 @@ import "testing"
 func TestApiService_FundingHistory(t *testing.T) {
 	s := NewApiServiceFromEnv()
 	p := &PaginationParam{CurrentPage: 1, PageSize: 10}
-	rsp, err := s.FundingHistory(map[string]string{}, p)
+	rsp, err := s.FundingHistory(map[string]string{"symbol":"XBTUSDM"}, p)
 	if err != nil {
 		t.Fatal(err)
 	}

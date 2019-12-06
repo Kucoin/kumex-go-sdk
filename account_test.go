@@ -5,33 +5,33 @@ import (
 )
 
 func TestApiService_AccountOverview(t *testing.T) {
+	t.SkipNow()
+
 	s := NewApiServiceFromEnv()
 	rsp, err := s.AccountOverview()
 	if err != nil {
 		t.Fatal(err)
 	}
-	cl := AccountsModel{}
-	if err := rsp.ReadData(&cl); err != nil {
+	o := &AccountModel{}
+	if err := rsp.ReadData(o); err != nil {
 		t.Fatal(err)
 	}
-	for _, c := range cl {
-		t.Log(ToJsonString(c))
-		switch {
-		case c.AccountEquity == "":
-			t.Error("Empty key 'accountEquity'")
-		case c.UnrealisedPNL == "":
-			t.Error("Empty key 'unrealisedPNL'")
-		case c.MarginBalance == "":
-			t.Error("Empty key 'marginBalance'")
-		case c.PositionMargin == "":
-			t.Error("Empty key 'positionMargin'")
-		case c.OrderMargin == "":
-			t.Error("Empty key 'orderMargin'")
-		case c.FrozenFunds == "":
-			t.Error("Empty key 'frozenFunds'")
-		case c.AvailableBalance == "":
-			t.Error("Empty key 'availableBalance'")
-		}
+	t.Log(ToJsonString(o))
+	switch {
+	case o.AccountEquity == "":
+		t.Error("Empty key 'accountEquity'")
+	case o.UnrealisedPNL == "":
+		t.Error("Empty key 'unrealisedPNL'")
+	case o.MarginBalance == "":
+		t.Error("Empty key 'marginBalance'")
+	case o.PositionMargin == "":
+		t.Error("Empty key 'positionMargin'")
+	case o.OrderMargin == "":
+		t.Error("Empty key 'orderMargin'")
+	case o.FrozenFunds == "":
+		t.Error("Empty key 'frozenFunds'")
+	case o.AvailableBalance == "":
+		t.Error("Empty key 'availableBalance'")
 	}
 }
 

@@ -6,14 +6,14 @@ import (
 
 // A TickerLevel1Model represents ticker include only the inside (i.e. best) bid and ask data, last price and last trade size.
 type TickerLevel1Model struct {
-	Sequence     string `json:"sequence"`
+	Sequence     int    `json:"sequence"`
 	Symbol       string `json:"symbol"`
 	Side         string `json:"side"`
 	Size         int    `json:"size"`
 	Price        string `json:"price"`
-	BestBidSize  string `json:"bestBidSize"`
+	BestBidSize  int    `json:"bestBidSize"`
 	BestBidPrice string `json:"bestBidPrice"`
-	BestAskSize  string `json:"bestAskSize"`
+	BestAskSize  int    `json:"bestAskSize"`
 	BestAskPrice string `json:"bestAskPrice"`
 	TradeId      string `json:"tradeId"`
 	Ts           int64  `json:"ts"`
@@ -26,10 +26,10 @@ func (as *ApiService) Ticker(symbol string) (*ApiResponse, error) {
 }
 
 type Level2SnapshotModel struct {
-	Symbol   string     `json:"symbol"`
-	Sequence string     `json:"sequence"`
-	Asks     [][]string `json:"asks"`
-	Bids     [][]string `json:"bids"`
+	Symbol   string      `json:"symbol"`
+	Sequence int         `json:"sequence"`
+	Asks     [][]float32 `json:"asks"`
+	Bids     [][]float32 `json:"bids"`
 }
 
 // TickerLevel1 returns the ticker include only the inside (i.e. best) bid and ask data, last price and last trade size.
@@ -40,7 +40,7 @@ func (as *ApiService) Level2Snapshot(symbol string) (*ApiResponse, error) {
 
 type Level2MessageQueryModel struct {
 	Symbol   string `json:"symbol"`
-	Sequence string `json:"sequence"`
+	Sequence int    `json:"sequence"`
 	Change   string `json:"change"`
 }
 
@@ -56,10 +56,10 @@ func (as *ApiService) Level2MessageQuery(symbol string, start, end int64) (*ApiR
 }
 
 type Level3SnapshotModel struct {
-	Symbol   string     `json:"symbol"`
-	Sequence string     `json:"sequence"`
-	Asks     [][]string `json:"asks"`
-	Bids     [][]string `json:"bids"`
+	Symbol   string          `json:"symbol"`
+	Sequence int             `json:"sequence"`
+	Asks     [][]interface{} `json:"asks"`
+	Bids     [][]interface{} `json:"bids"`
 }
 
 func (as *ApiService) Level3Snapshot(symbol string) (*ApiResponse, error) {
@@ -69,7 +69,7 @@ func (as *ApiService) Level3Snapshot(symbol string) (*ApiResponse, error) {
 
 type Level3MessageQueryModel struct {
 	Symbol    string `json:"symbol"`
-	Sequence  string `json:"sequence"`
+	Sequence  int    `json:"sequence"`
 	Side      string `json:"side"`
 	OrderTime int64  `json:"orderTime"`
 	Size      int    `json:"size"`
@@ -93,12 +93,12 @@ func (as *ApiService) Level3MessageQuery(symbol string, start, end int64) (*ApiR
 
 // A TradeHistoryModel represents a the latest trades for a symbol.
 type TradeHistoryModel struct {
-	Sequence     string `json:"sequence"`
+	Sequence     int    `json:"sequence"`
 	TradeId      string `json:"tradeId"`
 	TakerOrderId string `json:"takerOrderId"`
 	MakerOrderId string `json:"makerOrderId"`
 	Price        string `json:"price"`
-	Size         string `json:"size"`
+	Size         int    `json:"size"`
 	Side         string `json:"side"`
 	Time         int64  `json:"t"`
 }
@@ -113,10 +113,10 @@ func (as *ApiService) TradeHistory(symbol string) (*ApiResponse, error) {
 }
 
 type InterestModel struct {
-	Symbol      string `json:"symbol"`
-	Granularity string `json:"granularity"`
-	TimePoint   string `json:"timePoint"`
-	Value       string `json:"value"`
+	Symbol      string  `json:"symbol"`
+	Granularity int     `json:"granularity"`
+	TimePoint   int64   `json:"timePoint"`
+	Value       float32 `json:"value"`
 }
 
 type InterestsModel []*InterestModel
@@ -129,28 +129,27 @@ func (as *ApiService) InterestQuery(params map[string]string, pagination *Pagina
 }
 
 type IndexModel struct {
-	Symbol          string     `json:"symbol"`
-	Granularity     string     `json:"granularity"`
-	TimePoint       string     `json:"timePoint"`
-	Value           string     `json:"value"`
-	DecomposionList [][]string `json:"decomposionList"`
+	Symbol          string          `json:"symbol"`
+	Granularity     int             `json:"granularity"`
+	TimePoint       int64           `json:"timePoint"`
+	Value           float32         `json:"value"`
+	DecomposionList [][]interface{} `json:"decomposionList"`
 }
 
 type IndexQueryModel []*IndexModel
 
 // Deposits returns a list of deposit.
 func (as *ApiService) IndexQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
-	pagination.ReadParam(params)
 	req := NewRequest(http.MethodGet, "/api/v1/interest/query", params)
 	return as.Call(req)
 }
 
 type MarkPriceModel struct {
-	Symbol      string `json:"symbol"`
-	Granularity string `json:"granularity"`
-	TimePoint   string `json:"timePoint"`
-	Value       string `json:"value"`
-	IndexPrice  string `json:"indexPrice"`
+	Symbol      string  `json:"symbol"`
+	Granularity float32 `json:"granularity"`
+	TimePoint   int64   `json:"timePoint"`
+	Value       float32 `json:"value"`
+	IndexPrice  float32 `json:"indexPrice"`
 }
 
 func (as *ApiService) MarkPrice(Symbol string) (*ApiResponse, error) {
@@ -159,28 +158,26 @@ func (as *ApiService) MarkPrice(Symbol string) (*ApiResponse, error) {
 }
 
 type PremiumModel struct {
-	Symbol          string     `json:"symbol"`
-	Granularity     string     `json:"granularity"`
-	TimePoint       string     `json:"timePoint"`
-	Value           string     `json:"value"`
+	Symbol      string `json:"symbol"`
+	Granularity string `json:"granularity"`
+	TimePoint   string `json:"timePoint"`
+	Value       string `json:"value"`
 }
 
 type PremiumsModel []*PremiumModel
 
 // Deposits returns a list of deposit.
 func (as *ApiService) PremiumQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
-	pagination.ReadParam(params)
 	req := NewRequest(http.MethodGet, "/api/v1/premium/query", params)
 	return as.Call(req)
 }
 
-
 type FundingRateModel struct {
-	Symbol      string `json:"symbol"`
-	Granularity string `json:"granularity"`
-	TimePoint   string `json:"timePoint"`
-	Value       string `json:"value"`
-	PredictedValue  string `json:"predictedValue"`
+	Symbol         string `json:"symbol"`
+	Granularity    string `json:"granularity"`
+	TimePoint      string `json:"timePoint"`
+	Value          string `json:"value"`
+	PredictedValue string `json:"predictedValue"`
 }
 
 func (as *ApiService) FundingRate(Symbol string) (*ApiResponse, error) {

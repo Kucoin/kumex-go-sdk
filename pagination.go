@@ -22,6 +22,12 @@ type PaginationModel struct {
 	RawItems    json.RawMessage `json:"items"` // delay parsing
 }
 
+// A PaginationModel represents the pagination in a response.
+type PaginationHasMoreModel struct {
+	HasMore  bool            `json:"hasMore"`
+	DataList json.RawMessage `json:"dataList"` // delay parsing
+}
+
 // ReadItems read the `items` into v.
 func (p *PaginationModel) ReadItems(v interface{}) error {
 	return json.Unmarshal(p.RawItems, v)

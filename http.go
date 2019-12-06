@@ -3,7 +3,6 @@ package kumex
 import (
 	"bytes"
 	"crypto/tls"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -15,6 +14,7 @@ import (
 	"time"
 
 	"github.com/sirupsen/logrus"
+	"github.com/json-iterator/go"
 )
 
 // A Request represents a HTTP request.
@@ -61,7 +61,7 @@ func (r *Request) addParams(params map[string]string) {
 		if params == nil {
 			return
 		}
-		b, err := json.Marshal(params)
+		b, err := jsoniter.Marshal(params)
 		if err != nil {
 			log.Panic("Cannot marshal params to JSON string:", err.Error())
 		}
@@ -199,7 +199,7 @@ func (r *Response) ReadJsonBody(v interface{}) error {
 	if err != nil {
 		return err
 	}
-	return json.Unmarshal(b, v)
+	return jsoniter.Unmarshal(b, v)
 }
 
 // The predefined API codes
@@ -211,7 +211,7 @@ const (
 type ApiResponse struct {
 	response *Response
 	Code     string          `json:"code"`
-	RawData  json.RawMessage `json:"data"` // delay parsing
+	RawData  jsoniter.RawMessage `json:"data"` // delay parsing
 	Message  string          `json:"msg"`
 }
 
@@ -264,7 +264,7 @@ func (ar *ApiResponse) ReadData(v interface{}) error {
 		return errors.New(m)
 	}
 
-	return json.Unmarshal(ar.RawData, v)
+	return jsoniter.Unmarshal(ar.RawData, v)
 }
 
 // ReadPaginationData read the data `items` as JSON into v, and returns *PaginationModel.

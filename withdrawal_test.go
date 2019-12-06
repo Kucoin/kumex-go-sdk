@@ -52,19 +52,19 @@ func TestApiService_WithdrawalQuotas(t *testing.T) {
 	switch {
 	case wq.Currency == "":
 		t.Error("Empty key 'currency'")
-	case wq.AvailableAmount == "":
+	case wq.AvailableAmount <= 0:
 		t.Error("Empty key 'availableAmount'")
-	case wq.RemainAmount == "":
+	case wq.RemainAmount <= 0:
 		t.Error("Empty key 'remainAmount'")
-	case wq.WithdrawMinSize == "":
+	case wq.WithdrawMinSize <= 0:
 		t.Error("Empty key 'withdrawMinSize'")
-	case wq.LimitAmount == "":
+	case wq.LimitAmount <= 0:
 		t.Error("Empty key 'limitAmount'")
-	case wq.InnerWithdrawMinFee == "":
+	case wq.InnerWithdrawMinFee <= 0:
 		t.Error("Empty key 'innerWithdrawMinFee'")
-	case wq.WithdrawMinFee == "":
+	case wq.WithdrawMinFee <= 0:
 		t.Error("Empty key 'withdrawMinFee'")
-	case wq.UsedAmount == "":
+	case wq.UsedAmount <= 0:
 		t.Error("Empty key 'usedAmount'")
 	case wq.Precision == 0:
 		t.Error("Empty key 'precision'")

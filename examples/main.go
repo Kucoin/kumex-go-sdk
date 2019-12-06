@@ -8,14 +8,14 @@ import (
 func main() {
 	//s := kumex.NewApiServiceFromEnv()
 	s := kumex.NewApiService(
-		kumex.ApiKeyOption("5de08b8980c1fb00084d8970"),
-		kumex.ApiSecretOption("5fd6dbad-37dd-47b2-82a4-119cbf1196c5"),
-		kumex.ApiPassPhraseOption("123456789"),
+		kumex.ApiKeyOption(""),
+		kumex.ApiSecretOption(""),
+		kumex.ApiPassPhraseOption(""),
 	)
 	serverTime(s)
 	accounts(s)
 	orders(s)
-	websocket(s)
+	//websocket(s)
 }
 
 func serverTime(s *kumex.ApiService) {
@@ -35,7 +35,7 @@ func serverTime(s *kumex.ApiService) {
 }
 
 func accounts(s *kumex.ApiService) {
-	rsp, err := s.Accounts("", "")
+	rsp, err := s.AccountOverview()
 	if err != nil {
 		// Handle error
 		return
@@ -48,7 +48,7 @@ func accounts(s *kumex.ApiService) {
 	}
 
 	for _, a := range as {
-		log.Printf("Available balance: %s %s => %s", a.Type, a.Currency, a.Available)
+		log.Printf("Available balance: %s %s => %s", a.AccountEquity, a.OrderMargin, a.AvailableBalance)
 	}
 }
 
