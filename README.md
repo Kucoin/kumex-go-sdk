@@ -22,7 +22,7 @@ go get github.com/Kucoin/kumex-go-sdk
 | Environment | BaseUri |
 | -------- | -------- |
 | *Production* | `https://api.kumex.com(DEFAULT)` `https://api.kumex.top` |
-| *Sandbox* | `https://sandbox.kumex.com` |
+| *Sandbox* | `https://sandbox-api.kumex.com` |
 
 ### Create ApiService
 
