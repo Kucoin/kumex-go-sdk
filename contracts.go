@@ -40,7 +40,7 @@ func (as *ApiService) ActiveContracts() (*ApiResponse, error) {
 	return as.Call(req)
 }
 
-//  Contracts Get Order Info. of the Contract.
+// Contracts Get Order Info. of the Contract.
 func (as *ApiService) Contracts(symbol string) (*ApiResponse, error) {
 	p := map[string]string{}
 	if symbol != "" {

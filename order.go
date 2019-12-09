@@ -93,7 +93,7 @@ func (as *ApiService) Order(orderId string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
-// RecentOrders returns the recent orders of the latest transactions within 24 hours.
+// RecentDoneOrders returns the recent orders of the latest transactions within 24 hours.
 func (as *ApiService) RecentDoneOrders() (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/recentDoneOrders", nil)
 	return as.Call(req)

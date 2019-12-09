@@ -2,7 +2,7 @@ package kumex
 
 import "net/http"
 
-// A TransferOutModel
+// A TransferOutModel represents a transfer out record.
 type TransferOutModel struct {
 	ApplyId string `json:"applyId"`
 }
@@ -28,7 +28,7 @@ type TransferModel struct {
 	CreatedAt int64  `json:"createdAt"`
 }
 
-// A TransferModel
+// A TransferModel  represents a transfer list.
 type TransfersModel []*TransferModel
 
 // TransferList returns a list of deposit.

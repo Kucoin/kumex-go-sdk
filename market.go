@@ -25,7 +25,7 @@ func (as *ApiService) Ticker(symbol string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
-// Level2SnapshotModel
+// Level2SnapshotModel represents level2 ticker.
 type Level2SnapshotModel struct {
 	Symbol   string      `json:"symbol"`
 	Sequence int         `json:"sequence"`
@@ -39,13 +39,14 @@ func (as *ApiService) Level2Snapshot(symbol string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
-// Level2MessageQueryModel
+// Level2MessageQueryModel represents level2 ticker message.
 type Level2MessageQueryModel struct {
 	Symbol   string `json:"symbol"`
 	Sequence int    `json:"sequence"`
 	Change   string `json:"change"`
 }
 
+// Level2MessageQueryListModel the set of *Level2MessageQueryModel.
 type Level2MessageQueryListModel []*Level2MessageQueryModel
 
 // Level2MessageQuery Level 2 Pulling Messages.
@@ -58,7 +59,7 @@ func (as *ApiService) Level2MessageQuery(symbol string, start, end int64) (*ApiR
 	return as.Call(req)
 }
 
-// Level3SnapshotModel
+// Level3SnapshotModel represents level3 ticker message.
 type Level3SnapshotModel struct {
 	Symbol   string          `json:"symbol"`
 	Sequence int             `json:"sequence"`
@@ -72,7 +73,7 @@ func (as *ApiService) Level3Snapshot(symbol string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
-// Level3MessageQueryModel
+// Level3MessageQueryModel represents level3 ticker message.
 type Level3MessageQueryModel struct {
 	Symbol    string `json:"symbol"`
 	Sequence  int    `json:"sequence"`
@@ -86,7 +87,7 @@ type Level3MessageQueryModel struct {
 	Ts        int64  `json:"ts"`
 }
 
-// A Level3MessageQueryListModel is the set of *Level3MessageQueryModel
+// Level3MessageQueryListModel is the set of *Level3MessageQueryModel
 type Level3MessageQueryListModel []*Level3MessageQueryModel
 
 // Level3MessageQuery Level 3 Pulling Messages.
@@ -99,7 +100,7 @@ func (as *ApiService) Level3MessageQuery(symbol string, start, end int64) (*ApiR
 	return as.Call(req)
 }
 
-// A TradeHistoryModel represents a the latest trades for a symbol.
+// TradeHistoryModel represents a the latest trades for a symbol.
 type TradeHistoryModel struct {
 	Sequence     int    `json:"sequence"`
 	TradeId      string `json:"tradeId"`
@@ -111,7 +112,7 @@ type TradeHistoryModel struct {
 	Time         int64  `json:"t"`
 }
 
-// A TradeHistoriesModel is the set of *TradeHistoryModel.
+// TradeHistoriesModel is the set of *TradeHistoryModel.
 type TradesHistoryModel []*TradeHistoryModel
 
 // TradeHistories returns a list the latest trades for a symbol.
@@ -120,7 +121,7 @@ func (as *ApiService) TradeHistory(symbol string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
-// A InterestModel is the struct.
+// InterestModel is the struct.
 type InterestModel struct {
 	Symbol      string  `json:"symbol"`
 	Granularity int     `json:"granularity"`
@@ -128,19 +129,19 @@ type InterestModel struct {
 	Value       float32 `json:"value"`
 }
 
-// A InterestsModel is the set of InterestModel.
+//  InterestsModel is the set of InterestModel.
 type InterestsModel struct {
 	HasMore  bool             `json:"hasMore"`
 	DataList []*InterestModel `json:"dataList"` // delay parsing
 }
 
-// A InterestQuery Get Interest Rate List .
+// InterestQuery Get Interest Rate List .
 func (as *ApiService) InterestQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/interest/query", params)
 	return as.Call(req)
 }
 
-// A IndexModel is the struct.
+// IndexModel is the struct.
 type IndexModel struct {
 	Symbol          string          `json:"symbol"`
 	Granularity     int             `json:"granularity"`
@@ -155,7 +156,7 @@ type IndexQueryModel struct {
 	DataList []*IndexModel `json:"dataList"` // delay parsing
 }
 
-// A IndexQuery Get Index List.
+// IndexQuery Get Index List.
 func (as *ApiService) IndexQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/interest/query", params)
 	return as.Call(req)
@@ -170,7 +171,7 @@ type MarkPriceModel struct {
 	IndexPrice  float32 `json:"indexPrice"`
 }
 
-// A MarkPrice Get Current Mark Price
+// MarkPrice Get Current Mark Price
 func (as *ApiService) MarkPrice(Symbol string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/mark-price/"+Symbol+"/current", nil)
 	return as.Call(req)

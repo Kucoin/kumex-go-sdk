@@ -43,7 +43,7 @@ type PositionModel struct {
 	BankruptPrice     string `json:"bankruptPrice"`
 }
 
-// Get Position Details.
+// Position Get Position Details.
 func (as *ApiService) Position(symbol string) (*ApiResponse, error) {
 	p := map[string]string{}
 	if symbol != "" {
