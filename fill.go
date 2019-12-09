@@ -38,6 +38,7 @@ func (as *ApiService) RecentFills() (*ApiResponse, error) {
 	return as.Call(req)
 }
 
+// A OpenOrderStatisticsModel represents the struct of fill.
 type OpenOrderStatisticsModel struct {
 	OpenOrderBuySize  string `json:"openOrderBuySize"`
 	OpenOrderSellSize string `json:"openOrderSellSize"`
@@ -45,8 +46,8 @@ type OpenOrderStatisticsModel struct {
 	OpenOrderSellCost string `json:"openOrderSellCost"`
 }
 
-// Active Order Value Calculation.
-func (as *ApiService) openOrderStatistics(symbol string) (*ApiResponse, error) {
+// openOrderStatistics Active Order Value Calculation.
+func (as *ApiService) OpenOrderStatistics(symbol string) (*ApiResponse, error) {
 	p := map[string]string{}
 	if symbol != "" {
 		p["symbol"] = symbol

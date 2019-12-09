@@ -137,7 +137,7 @@ func TestApiService_Order(t *testing.T) {
 
 func TestApiService_RecentOrders(t *testing.T) {
 	s := NewApiServiceFromEnv()
-	rsp, err := s.recentDoneOrders()
+	rsp, err := s.RecentDoneOrders()
 	if err != nil {
 		t.Fatal(err)
 	}

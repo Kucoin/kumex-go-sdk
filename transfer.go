@@ -2,12 +2,12 @@ package kumex
 
 import "net/http"
 
-// A
+// A TransferOutModel
 type TransferOutModel struct {
 	ApplyId string `json:"applyId"`
 }
 
-// Transfer Funds to KuCoin-Main Account.
+// TransferOut Transfer Funds to KuCoin-Main Account.
 func (as *ApiService) TransferOut(bizNo, amount string) (*ApiResponse, error) {
 	p := map[string]string{
 		"bizNo":  bizNo,
@@ -17,7 +17,7 @@ func (as *ApiService) TransferOut(bizNo, amount string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
-// A DepositModel represents a deposit record.
+// A TransferModel represents a transfer record.
 type TransferModel struct {
 	ApplyId   string `json:"applyId"`
 	Currency  string `json:"currency"`
@@ -28,21 +28,22 @@ type TransferModel struct {
 	CreatedAt int64  `json:"createdAt"`
 }
 
+// A TransferModel
 type TransfersModel []*TransferModel
 
-// Deposits returns a list of deposit.
+// TransferList returns a list of deposit.
 func (as *ApiService) TransferList(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
 	pagination.ReadParam(params)
 	req := NewRequest(http.MethodGet, "/api/v1/transfer-list", params)
 	return as.Call(req)
 }
 
-// CancelWithdrawalResultModel represents the result of CancelWithdrawal().
+// CancelTransferModel represents the result of CancelWithdrawal().
 type CancelTransferModel struct {
 	ApplyId string `json:"applyId"`
 }
 
-// Cancel Transfer-Out Request.
+// CancelTransfer Cancel Transfer-Out Request.
 func (as *ApiService) CancelTransfer(applyId string) (*ApiResponse, error) {
 	p := map[string]string{
 		"applyId": applyId,

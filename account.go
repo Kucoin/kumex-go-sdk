@@ -18,7 +18,7 @@ type AccountModel struct {
 // An AccountsModel is the set of *AccountModel.
 type AccountsModel []*AccountModel
 
-// Accounts returns a list of accounts.
+// AccountOverview returns a list of accounts.
 // See the Deposits section for documentation on how to deposit funds to begin trading.
 func (as *ApiService) AccountOverview() (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/account-overview", nil)
@@ -37,10 +37,10 @@ type TransactionHistoryModel struct {
 	Offset        string `json:"offset"`
 }
 
-// An TransactionHistoryListModel the set of *AccountLedgerModel.
+// An TransactionHistoryListModel the set of *TransactionHistoryModel.
 type TransactionHistoryListModel []*TransactionHistoryModel
 
-// AccountLedgers returns a list of ledgers.
+// TransactionHistory returns a list of ledgers.
 // Account activity either increases or decreases your account balance.
 // Items are paginated and sorted latest first.
 func (as *ApiService) TransactionHistory(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {

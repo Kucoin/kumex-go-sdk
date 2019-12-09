@@ -2,6 +2,7 @@ package kumex
 
 import "net/http"
 
+// A FundingModel represents a funding record.
 type FundingModel struct {
 	Id           int64   `json:"id"`
 	Symbol       string  `json:"symbol"`
@@ -13,12 +14,13 @@ type FundingModel struct {
 	Funding      float64 `json:"funding"`
 }
 
+// A FundingListModel is the set of *FundingModel.
 type FundingListModel struct {
 	HasMore  bool            `json:"hasMore"`
 	DataList []*FundingModel `json:"dataList"` // delay parsing
 }
 
-// Get Funding History.
+// FundingHistory Get Funding History.
 func (as *ApiService) FundingHistory(params map[string]string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/funding-history", params)
 	return as.Call(req)

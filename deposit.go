@@ -33,6 +33,7 @@ type DepositModel struct {
 	CreatedAt  int64  `json:"createdAt"`
 }
 
+// A DepositsModel represents a deposit list.
 type DepositsModel []*DepositModel
 
 // Deposits returns a list of deposit.

@@ -9,7 +9,7 @@ func TestApiService_Position(t *testing.T) {
 	t.SkipNow()
 
 	s := NewApiServiceFromEnv()
-	rsp, err := s.position("XBTUSDM")
+	rsp, err := s.Position("XBTUSDM")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -34,7 +34,7 @@ func TestApiService_Positions(t *testing.T) {
 	t.SkipNow()
 
 	s := NewApiServiceFromEnv()
-	rsp, err := s.positions()
+	rsp, err := s.Positions()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -63,7 +63,7 @@ func TestApiService_autoDepositStatus(t *testing.T) {
 		"symbol": "XBTUSDM",
 		"status": "true",
 	}
-	rsp, err := s.autoDepositStatus(p)
+	rsp, err := s.AutoDepositStatus(p)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -87,7 +87,7 @@ func TestApiService_DepositMargin(t *testing.T) {
 		"margin": "0.1111",
 		"bizNo":  IntToString(time.Now().UnixNano()),
 	}
-	rsp, err := s.autoDepositStatus(p)
+	rsp, err := s.AutoDepositStatus(p)
 	if err != nil {
 		t.Fatal(err)
 	}

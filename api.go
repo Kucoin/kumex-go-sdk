@@ -1,5 +1,5 @@
 /*
-package kumex provides two kinds of APIs: `RESTful API` and `WebSocket feed`.
+Package kumex provides two kinds of APIs: `RESTful API` and `WebSocket feed`.
 The official document: https://docs.kumex.com
 */
 package kumex

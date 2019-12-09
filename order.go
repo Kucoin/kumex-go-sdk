@@ -35,7 +35,8 @@ func (as *ApiService) CancelOrders(symbol string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
-func (as *ApiService) stopOrders(symbol string) (*ApiResponse, error) {
+// StopOrders represents an order.
+func (as *ApiService) StopOrders(symbol string) (*ApiResponse, error) {
 	p := map[string]string{}
 	if symbol != "" {
 		p["symbol"] = symbol
@@ -93,7 +94,7 @@ func (as *ApiService) Order(orderId string) (*ApiResponse, error) {
 }
 
 // RecentOrders returns the recent orders of the latest transactions within 24 hours.
-func (as *ApiService) recentDoneOrders() (*ApiResponse, error) {
+func (as *ApiService) RecentDoneOrders() (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/recentDoneOrders", nil)
 	return as.Call(req)
 }

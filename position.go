@@ -4,6 +4,7 @@ import (
 	"net/http"
 )
 
+// A PositionModel represents a position info.
 type PositionModel struct {
 	Id                string `json:"id"`
 	Symbol            string `json:"symbol"`
@@ -43,7 +44,7 @@ type PositionModel struct {
 }
 
 // Get Position Details.
-func (as *ApiService) position(symbol string) (*ApiResponse, error) {
+func (as *ApiService) Position(symbol string) (*ApiResponse, error) {
 	p := map[string]string{}
 	if symbol != "" {
 		p["symbol"] = symbol
@@ -52,20 +53,20 @@ func (as *ApiService) position(symbol string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
-// Get Position List.
-func (as *ApiService) positions() (*ApiResponse, error) {
+// Positions Get Position List.
+func (as *ApiService) Positions() (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/positions", nil)
 	return as.Call(req)
 }
 
-// Enable/Disable of Auto-Deposit Margin.
-func (as *ApiService) autoDepositStatus(params map[string]string) (*ApiResponse, error) {
+// AutoDepositStatus Enable/Disable of Auto-Deposit Margin.
+func (as *ApiService) AutoDepositStatus(params map[string]string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodPost, "/api/v1/position/margin/auto-deposit-status", params)
 	return as.Call(req)
 }
 
-// Add Margin Manually.
-func (as *ApiService) depositMargin(params map[string]string) (*ApiResponse, error) {
+// DepositMargin Add Margin Manually.
+func (as *ApiService) DepositMargin(params map[string]string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodPost, "/api/v1/position/margin/deposit-margin", params)
 	return as.Call(req)
 }

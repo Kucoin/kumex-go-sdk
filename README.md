@@ -263,7 +263,7 @@ for {
 | ApiService.CreateOrder() | YES | https://docs.kumex.com/#place-a-new-order |
 | ApiService.CancelOrder() | YES | https://docs.kumex.com/#cancel-an-order |
 | ApiService.CancelOrders() | YES | https://docs.kumex.com/#cancel-all-orders |
-| ApiService.stopOrders() | YES | https://docs.kumex.com/#get-untriggered-stop-order-list |
+| ApiService.StopOrders() | YES | https://docs.kumex.com/#get-untriggered-stop-order-list |
 | ApiService.Orders() | YES | https://docs.kumex.com/#list-orders |
 | ApiService.Order() | YES | https://docs.kumex.com/#get-an-order |
 | ApiService.RecentOrders() | YES | https://docs.kumex.com/#recent-orders |
