@@ -91,9 +91,9 @@ func websocket(s *kumex.ApiService) {
 		return
 	}
 
-	ch1 := kumex.NewSubscribeMessage("/market/ticker:KCS-BTC", false)
-	ch2 := kumex.NewSubscribeMessage("/market/ticker:ETH-BTC", false)
-	uch := kumex.NewUnsubscribeMessage("/market/ticker:ETH-BTC", false)
+	ch1 := kumex.NewSubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
+	ch2 := kumex.NewSubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
+	uch := kumex.NewUnsubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
 
 	if err := c.Subscribe(ch1, ch2); err != nil {
 		// Handle error
@@ -118,7 +118,7 @@ func websocket(s *kumex.ApiService) {
 			log.Printf("Ticker: %s, %s, %s, %s", msg.Topic, t.Sequence, t.Price, t.Size)
 			i++
 			if i == 5 {
-				log.Println("Unsubscribe ETH-BTC")
+				log.Println("Unsubscribe XBTUSDM")
 				if err = c.Unsubscribe(uch); err != nil {
 					log.Printf("Error: %s", err.Error())
 					// Handle error
@@ -126,7 +126,7 @@ func websocket(s *kumex.ApiService) {
 				}
 			}
 			if i == 10 {
-				log.Println("Subscribe ETH-BTC")
+				log.Println("Subscribe XBTUSDM")
 				if err = c.Subscribe(ch2); err != nil {
 					log.Printf("Error: %s", err.Error())
 					// Handle error

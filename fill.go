@@ -45,6 +45,7 @@ type OpenOrderStatisticsModel struct {
 	OpenOrderSellCost string `json:"openOrderSellCost"`
 }
 
+// Active Order Value Calculation.
 func (as *ApiService) openOrderStatistics(symbol string) (*ApiResponse, error) {
 	p := map[string]string{}
 	if symbol != "" {

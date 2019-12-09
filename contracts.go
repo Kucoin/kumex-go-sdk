@@ -33,11 +33,13 @@ type ContractsModel struct {
 	TickSize           string `json:"tickSize"`
 }
 
+// Get Open Contract List.
 func (as *ApiService) ActiveContracts() (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/contracts/active", nil)
 	return as.Call(req)
 }
 
+// Get Order Info. of the Contract.
 func (as *ApiService) Contracts(symbol string) (*ApiResponse, error) {
 	p := map[string]string{}
 	if symbol != "" {

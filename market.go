@@ -19,7 +19,7 @@ type TickerLevel1Model struct {
 	Ts           int64  `json:"ts"`
 }
 
-// TickerLevel1 returns the ticker include only the inside (i.e. best) bid and ask data, last price and last trade size.
+// Get Real-Time Ticker.
 func (as *ApiService) Ticker(symbol string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/ticker", map[string]string{"symbol": symbol})
 	return as.Call(req)
@@ -32,7 +32,7 @@ type Level2SnapshotModel struct {
 	Bids     [][]float32 `json:"bids"`
 }
 
-// TickerLevel1 returns the ticker include only the inside (i.e. best) bid and ask data, last price and last trade size.
+// Get Full Order Book - Level 2.
 func (as *ApiService) Level2Snapshot(symbol string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/level2/snapshot", map[string]string{"symbol": symbol})
 	return as.Call(req)
@@ -46,6 +46,7 @@ type Level2MessageQueryModel struct {
 
 type Level2MessageQueryListModel []*Level2MessageQueryModel
 
+// Level 2 Pulling Messages.
 func (as *ApiService) Level2MessageQuery(symbol string, start, end int64) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/level2/message/query", map[string]string{
 		"symbol": symbol,
@@ -62,6 +63,7 @@ type Level3SnapshotModel struct {
 	Bids     [][]interface{} `json:"bids"`
 }
 
+// Get Full Order Book - Level 3.
 func (as *ApiService) Level3Snapshot(symbol string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/level3/snapshot", map[string]string{"symbol": symbol})
 	return as.Call(req)
@@ -82,6 +84,7 @@ type Level3MessageQueryModel struct {
 
 type Level3MessageQueryListModel []*Level3MessageQueryModel
 
+// Level 3 Pulling Messages.
 func (as *ApiService) Level3MessageQuery(symbol string, start, end int64) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/level3/message/query", map[string]string{
 		"symbol": symbol,
@@ -119,11 +122,13 @@ type InterestModel struct {
 	Value       float32 `json:"value"`
 }
 
-type InterestsModel []*InterestModel
+type InterestsModel struct {
+	HasMore  bool             `json:"hasMore"`
+	DataList []*InterestModel `json:"dataList"` // delay parsing
+}
 
-// Deposits returns a list of deposit.
+// Get Interest Rate List .
 func (as *ApiService) InterestQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
-	pagination.ReadParam(params)
 	req := NewRequest(http.MethodGet, "/api/v1/interest/query", params)
 	return as.Call(req)
 }
@@ -136,9 +141,12 @@ type IndexModel struct {
 	DecomposionList [][]interface{} `json:"decomposionList"`
 }
 
-type IndexQueryModel []*IndexModel
+type IndexQueryModel struct {
+	HasMore  bool          `json:"hasMore"`
+	DataList []*IndexModel `json:"dataList"` // delay parsing
+}
 
-// Deposits returns a list of deposit.
+// Get Index List.
 func (as *ApiService) IndexQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/interest/query", params)
 	return as.Call(req)
@@ -152,6 +160,7 @@ type MarkPriceModel struct {
 	IndexPrice  float32 `json:"indexPrice"`
 }
 
+// Get Current Mark Price
 func (as *ApiService) MarkPrice(Symbol string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/mark-price/"+Symbol+"/current", nil)
 	return as.Call(req)
@@ -164,9 +173,12 @@ type PremiumModel struct {
 	Value       string `json:"value"`
 }
 
-type PremiumsModel []*PremiumModel
+type PremiumsModel struct {
+	HasMore  bool            `json:"hasMore"`
+	DataList []*PremiumModel `json:"dataList"` // delay parsing
+}
 
-// Deposits returns a list of deposit.
+// Get Premium Index.
 func (as *ApiService) PremiumQuery(params map[string]string, pagination *PaginationParam) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/premium/query", params)
 	return as.Call(req)
@@ -174,12 +186,13 @@ func (as *ApiService) PremiumQuery(params map[string]string, pagination *Paginat
 
 type FundingRateModel struct {
 	Symbol         string `json:"symbol"`
-	Granularity    string `json:"granularity"`
-	TimePoint      string `json:"timePoint"`
-	Value          string `json:"value"`
-	PredictedValue string `json:"predictedValue"`
+	Granularity    int64 `json:"granularity"`
+	TimePoint      int64 `json:"timePoint"`
+	Value          float32 `json:"value"`
+	PredictedValue float32 `json:"predictedValue"`
 }
 
+// Get Current Funding Rate.
 func (as *ApiService) FundingRate(Symbol string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/funding-rate/"+Symbol+"/current", nil)
 	return as.Call(req)

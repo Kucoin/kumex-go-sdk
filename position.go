@@ -42,6 +42,7 @@ type PositionModel struct {
 	BankruptPrice     string `json:"bankruptPrice"`
 }
 
+// Get Position Details.
 func (as *ApiService) position(symbol string) (*ApiResponse, error) {
 	p := map[string]string{}
 	if symbol != "" {
@@ -51,16 +52,19 @@ func (as *ApiService) position(symbol string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
+// Get Position List.
 func (as *ApiService) positions() (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/positions", nil)
 	return as.Call(req)
 }
 
+// Enable/Disable of Auto-Deposit Margin.
 func (as *ApiService) autoDepositStatus(params map[string]string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodPost, "/api/v1/position/margin/auto-deposit-status", params)
 	return as.Call(req)
 }
 
+// Add Margin Manually.
 func (as *ApiService) depositMargin(params map[string]string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodPost, "/api/v1/position/margin/deposit-margin", params)
 	return as.Call(req)

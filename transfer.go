@@ -7,7 +7,7 @@ type TransferOutModel struct {
 	ApplyId string `json:"applyId"`
 }
 
-// ApplyWithdrawal applies a withdrawal.
+// Transfer Funds to KuCoin-Main Account.
 func (as *ApiService) TransferOut(bizNo, amount string) (*ApiResponse, error) {
 	p := map[string]string{
 		"bizNo":  bizNo,
@@ -42,7 +42,7 @@ type CancelTransferModel struct {
 	ApplyId string `json:"applyId"`
 }
 
-// CancelWithdrawal cancels a withdrawal by withdrawalId.
+// Cancel Transfer-Out Request.
 func (as *ApiService) CancelTransfer(applyId string) (*ApiResponse, error) {
 	p := map[string]string{
 		"applyId":  applyId,

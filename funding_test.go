@@ -4,28 +4,27 @@ import "testing"
 
 func TestApiService_FundingHistory(t *testing.T) {
 	s := NewApiServiceFromEnv()
-	p := &PaginationParam{CurrentPage: 1, PageSize: 10}
-	rsp, err := s.FundingHistory(map[string]string{"symbol":"XBTUSDM"}, p)
+	rsp, err := s.FundingHistory(map[string]string{"symbol":"XBTUSDM"})
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	os := FundingListModel{}
-	if _, err := rsp.ReadPaginationData(&os); err != nil {
+	if err := rsp.ReadData(&os); err != nil {
 		t.Fatal(err)
 	}
-	for _, o := range os {
+	for _, o := range os.DataList {
 		t.Log(ToJsonString(o))
 		switch {
-		case o.Id == "":
+		case o.Id  <= 0:
 			t.Error("Empty key 'id'")
 		case o.Symbol == "":
 			t.Error("Empty key 'symbol'")
-		case o.MarkPrice == "":
+		case o.MarkPrice ==  0:
 			t.Error("Empty key 'markPrice'")
-		case o.FundingRate == "":
+		case o.FundingRate == 0:
 			t.Error("Empty key 'fundingRate'")
-		case o.Funding == "":
+		case o.Funding ==  0:
 			t.Error("Empty key 'funding'")
 		}
 	}

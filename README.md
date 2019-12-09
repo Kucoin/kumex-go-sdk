@@ -83,7 +83,7 @@ log.Printf("The server time: %d", ts)
 
 ```go
 // Without pagination
-rsp, err := s.Accounts("", "")
+rsp, err := s.AccountOverview()
 if err != nil {
     // Handle error
     return
@@ -148,9 +148,9 @@ if err != nil {
     return
 }
 
-ch1 := kumex.NewSubscribeMessage("/market/ticker:KCS-BTC", false)
-ch2 := kumex.NewSubscribeMessage("/market/ticker:ETH-BTC", false)
-uch := kumex.NewUnsubscribeMessage("/market/ticker:ETH-BTC", false)
+ch1 := kumex.NewSubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
+ch2 := kumex.NewSubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
+uch := kumex.NewUnsubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
 
 if err := c.Subscribe(ch1, ch2); err != nil {
     // Handle error
@@ -175,7 +175,7 @@ for {
         log.Printf("Ticker: %s, %s, %s, %s", msg.Topic, t.Sequence, t.Price, t.Size)
         i++
         if i == 5 {
-            log.Println("Unsubscribe ETH-BTC")
+            log.Println("Unsubscribe XBTUSDM")
             if err = c.Unsubscribe(uch); err != nil {
                 log.Printf("Error: %s", err.Error())
                 // Handle error
@@ -183,7 +183,7 @@ for {
             }
         }
         if i == 10 {
-            log.Println("Subscribe ETH-BTC")
+            log.Println("Subscribe XBTUSDM")
             if err = c.Subscribe(ch2); err != nil {
                 log.Printf("Error: %s", err.Error())
                 // Handle error
@@ -206,17 +206,8 @@ for {
 
 | API | Authentication | Description |
 | -------- | -------- | -------- |
-| ApiService.CreateAccount() | YES | https://docs.kumex.com/#create-an-account |
-| ApiService.Accounts() | YES | https://docs.kumex.com/#list-accounts |
-| ApiService.Account() | YES | https://docs.kumex.com/#get-an-account |
-| ApiService.SubAccountUsers() | YES | https://docs.kumex.com/#get-user-info-of-all-sub-accounts |
-| ApiService.SubAccounts() | YES | https://docs.kumex.com/#get-the-aggregated-balance-of-all-sub-accounts-of-the-current-user |
-| ApiService.SubAccount() | YES | https://docs.kumex.com/#get-account-balance-of-a-sub-account |
-| ApiService.AccountLedgers() | YES | https://docs.kumex.com/#get-account-ledgers |
-| ApiService.AccountHolds() | YES | https://docs.kumex.com/#get-holds |
-| ApiService.InnerTransfer() | YES | `DEPRECATED` https://docs.kumex.com/#inner-transfer |
-| ApiService.InnerTransferV2() | YES | https://docs.kumex.com/#inner-transfer |
-| ApiService.SubTransfer() | YES | https://docs.kumex.com/#transfer-between-master-account-and-sub-account |
+| ApiService.AccountOverview() | YES | https://docs.kumex.com/#get-account-overview |
+| ApiService.TransactionHistory() | YES | https://docs.kumex.com/#get-transaction-history |
 
 </details>
 
@@ -225,10 +216,31 @@ for {
 
 | API | Authentication | Description |
 | -------- | -------- | -------- |
-| ApiService.CreateDepositAddress() | YES | https://docs.kumex.com/#create-deposit-address |
 | ApiService.DepositAddresses() | YES | https://docs.kumex.com/#get-deposit-address |
-| ApiService.V1Deposits() | YES | https://docs.kumex.com/#get-v1-historical-deposits-list |
 | ApiService.Deposits() | YES | https://docs.kumex.com/#get-deposit-list |
+
+</details>
+
+<details>
+<summary>Withdrawal</summary>
+
+| API | Authentication | Description |
+| -------- | -------- | -------- |
+| ApiService.WithdrawalQuotas() | YES | https://docs.kumex.com/#get-withdrawal-quotas |
+| ApiService.ApplyWithdrawal() | YES | https://docs.kumex.com/#apply-withdraw |
+| ApiService.Withdrawals() | YES | https://docs.kumex.com/#get-withdrawals-list |
+| ApiService.CancelWithdrawal() | YES | https://docs.kumex.com/#cancel-withdrawal |
+
+</details>
+
+<details>
+<summary>Transfer</summary>
+
+| API | Authentication | Description |
+| -------- | -------- | -------- |
+| ApiService.TransferOut() | YES | https://docs.kumex.com/#transfer-out |
+| ApiService.TransferList() | YES | https://docs.kumex.com/#get-transfer-list |
+| ApiService.CancelTransfer() | YES | https://docs.kumex.com/#cancel-transfer |
 
 </details>
 
@@ -239,6 +251,7 @@ for {
 | -------- | -------- | -------- |
 | ApiService.Fills() | YES | https://docs.kumex.com/#list-fills |
 | ApiService.RecentFills() | YES | https://docs.kumex.com/#recent-fills |
+| ApiService.openOrderStatistics() | YES | https://docs.kumex.com/#open-order-statistics |
 
 </details>
 
@@ -250,10 +263,39 @@ for {
 | ApiService.CreateOrder() | YES | https://docs.kumex.com/#place-a-new-order |
 | ApiService.CancelOrder() | YES | https://docs.kumex.com/#cancel-an-order |
 | ApiService.CancelOrders() | YES | https://docs.kumex.com/#cancel-all-orders |
-| ApiService.V1Orders() | YES | https://docs.kumex.com/#get-v1-historical-orders-list |
+| ApiService.stopOrders() | YES | https://docs.kumex.com/#get-untriggered-stop-order-list |
 | ApiService.Orders() | YES | https://docs.kumex.com/#list-orders |
 | ApiService.Order() | YES | https://docs.kumex.com/#get-an-order |
 | ApiService.RecentOrders() | YES | https://docs.kumex.com/#recent-orders |
+
+</details>
+
+<details>
+<summary>Market</summary>
+
+| API | Authentication | Description |
+| -------- | -------- | -------- |
+| ApiService.Ticker() | NO | https://docs.kumex.com/#get-real-time-ticker |
+| ApiService.Level2Snapshot() | NO | https://docs.kumex.com/#get-full-order-book-level-2 |
+| ApiService.Level2MessageQuery() | NO | https://docs.kumex.com/#level-2-pulling-messages |
+| ApiService.Level3Snapshot() | NO | https://docs.kumex.com/#get-full-order-book-level-3 |
+| ApiService.Level3MessageQuery() | NO | https://docs.kumex.com/#level-3-pulling-messages|
+| ApiService.TradeHistory() | NO | https://docs.kumex.com/#transaction-history |
+| ApiService.InterestQuery() | NO | https://docs.kumex.com/#get-interest-rate-list |
+| ApiService.IndexQuery() | NO | https://docs.kumex.com/#get-index-list |
+| ApiService.MarkPrice() | NO | https://docs.kumex.com/#get-current-mark-price |
+| ApiService.PremiumQuery() | NO | https://docs.kumex.com/#get-premium-index |
+| ApiService.FundingRate() | NO | https://docs.kumex.com/#get-current-funding-rate |
+
+</details>
+
+<details>
+<summary>Symbol</summary>
+
+| API | Authentication | Description |
+| -------- | -------- | -------- |
+| ApiService.ActiveContracts() | NO | https://docs.kumex.com/#get-open-contract-list |
+| ApiService.Contracts() | NO | https://docs.kumex.com/#get-order-info-of-the-contract |
 
 </details>
 
@@ -265,48 +307,6 @@ for {
 | ApiService.WebSocketPublicToken() | NO | https://docs.kumex.com/#apply-connect-token |
 | ApiService.WebSocketPrivateToken() | YES | https://docs.kumex.com/#apply-connect-token |
 | ApiService.NewWebSocketClient() | - | https://docs.kumex.com/#websocket-feed |
-
-</details>
-
-<details>
-<summary>Withdrawal</summary>
-
-| API | Authentication | Description |
-| -------- | -------- | -------- |
-| ApiService.WithdrawalQuotas() | YES | https://docs.kumex.com/#get-withdrawal-quotas |
-| ApiService.V1Withdrawals() | YES | https://docs.kumex.com/#get-v1-historical-withdrawals-list |
-| ApiService.Withdrawals() | YES | https://docs.kumex.com/#get-withdrawals-list |
-| ApiService.ApplyWithdrawal() | YES | https://docs.kumex.com/#apply-withdraw |
-| ApiService.CancelWithdrawal() | YES | https://docs.kumex.com/#cancel-withdrawal |
-
-</details>
-
-<details>
-<summary>Currency</summary>
-
-| API | Authentication | Description |
-| -------- | -------- | -------- |
-| ApiService.Currencies() | NO | https://docs.kumex.com/#get-currencies |
-| ApiService.Currency() | NO | https://docs.kumex.com/#get-currency-detail |
-| ApiService.Prices() | NO | https://docs.kumex.com/#get-fiat-price |
-
-</details>
-
-<details>
-<summary>Symbol</summary>
-
-| API | Authentication | Description |
-| -------- | -------- | -------- |
-| ApiService.Symbols() | NO | https://docs.kumex.com/#get-symbols-list |
-| ApiService.TickerLevel1() | NO | https://docs.kumex.com/#get-ticker |
-| ApiService.Tickers() | NO | https://docs.kumex.com/#get-all-tickers |
-| ApiService.AggregatedPartOrderBook() | NO | https://docs.kumex.com/#get-part-order-book-aggregated |
-| ApiService.AggregatedFullOrderBook() | NO | https://docs.kumex.com/#get-full-order-book-aggregated |
-| ApiService.AtomicFullOrderBook() | NO | https://docs.kumex.com/#get-full-order-book-atomic |
-| ApiService.TradeHistories() | NO | https://docs.kumex.com/#get-trade-histories |
-| ApiService.KLines() | NO | https://docs.kumex.com/#get-klines |
-| ApiService.Stats24hr() | NO | https://docs.kumex.com/#get-24hr-stats |
-| ApiService.Markets() | NO | https://docs.kumex.com/#get-market-list |
 
 </details>
 
