@@ -129,7 +129,7 @@ type InterestModel struct {
 	Value       float32 `json:"value"`
 }
 
-//  InterestsModel is the set of *InterestModel.
+// InterestsModel is the set of *InterestModel.
 type InterestsModel struct {
 	HasMore  bool             `json:"hasMore"`
 	DataList []*InterestModel `json:"dataList"` // delay parsing
