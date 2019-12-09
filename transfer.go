@@ -28,7 +28,7 @@ type TransferModel struct {
 	CreatedAt int64  `json:"createdAt"`
 }
 
-// A TransferModel  represents a transfer list.
+// A TransfersModel  represents a transfer list.
 type TransfersModel []*TransferModel
 
 // TransferList returns a list of deposit.

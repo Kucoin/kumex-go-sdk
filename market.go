@@ -112,10 +112,10 @@ type TradeHistoryModel struct {
 	Time         int64  `json:"t"`
 }
 
-// TradeHistoriesModel is the set of *TradeHistoryModel.
+// TradesHistoryModel is the set of *TradeHistoryModel.
 type TradesHistoryModel []*TradeHistoryModel
 
-// TradeHistories returns a list the latest trades for a symbol.
+// TradeHistory returns a list the latest trades for a symbol.
 func (as *ApiService) TradeHistory(symbol string) (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/trade/history", map[string]string{"symbol": symbol})
 	return as.Call(req)
@@ -129,7 +129,7 @@ type InterestModel struct {
 	Value       float32 `json:"value"`
 }
 
-//  InterestsModel is the set of InterestModel.
+//  InterestsModel is the set of *InterestModel.
 type InterestsModel struct {
 	HasMore  bool             `json:"hasMore"`
 	DataList []*InterestModel `json:"dataList"` // delay parsing
