@@ -27,7 +27,6 @@ func TestApiService_ActiveContracts(t *testing.T) {
 	}
 }
 
-
 func TestApiService_Contracts(t *testing.T) {
 	t.SkipNow()
 

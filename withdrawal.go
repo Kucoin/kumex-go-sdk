@@ -6,7 +6,7 @@ import (
 
 // A WithdrawalQuotasModel represents the quotas for a currency.
 type WithdrawalQuotasModel struct {
-	Currency            string `json:"currency"`
+	Currency            string  `json:"currency"`
 	LimitAmount         float32 `json:"limitAmount"`
 	UsedAmount          float32 `json:"usedAmount"`
 	RemainAmount        float32 `json:"remainAmount"`
@@ -14,8 +14,8 @@ type WithdrawalQuotasModel struct {
 	WithdrawMinSize     float32 `json:"withdrawMinSize"`
 	InnerWithdrawMinFee float32 `json:"innerWithdrawMinFee"`
 	WithdrawMinFee      float32 `json:"withdrawMinFee"`
-	IsWithdrawEnabled   bool   `json:"isWithdrawEnabled"`
-	Precision           uint8  `json:"precision"`
+	IsWithdrawEnabled   bool    `json:"isWithdrawEnabled"`
+	Precision           uint8   `json:"precision"`
 }
 
 // WithdrawalQuotas returns the quotas of withdrawal.

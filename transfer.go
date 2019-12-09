@@ -45,7 +45,7 @@ type CancelTransferModel struct {
 // Cancel Transfer-Out Request.
 func (as *ApiService) CancelTransfer(applyId string) (*ApiResponse, error) {
 	p := map[string]string{
-		"applyId":  applyId,
+		"applyId": applyId,
 	}
 	req := NewRequest(http.MethodDelete, "/api/v1/cancel/transfer-out", p)
 	return as.Call(req)

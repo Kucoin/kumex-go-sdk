@@ -4,7 +4,7 @@ import "testing"
 
 func TestApiService_FundingHistory(t *testing.T) {
 	s := NewApiServiceFromEnv()
-	rsp, err := s.FundingHistory(map[string]string{"symbol":"XBTUSDM"})
+	rsp, err := s.FundingHistory(map[string]string{"symbol": "XBTUSDM"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -16,15 +16,15 @@ func TestApiService_FundingHistory(t *testing.T) {
 	for _, o := range os.DataList {
 		t.Log(ToJsonString(o))
 		switch {
-		case o.Id  <= 0:
+		case o.Id <= 0:
 			t.Error("Empty key 'id'")
 		case o.Symbol == "":
 			t.Error("Empty key 'symbol'")
-		case o.MarkPrice ==  0:
+		case o.MarkPrice == 0:
 			t.Error("Empty key 'markPrice'")
 		case o.FundingRate == 0:
 			t.Error("Empty key 'fundingRate'")
-		case o.Funding ==  0:
+		case o.Funding == 0:
 			t.Error("Empty key 'funding'")
 		}
 	}

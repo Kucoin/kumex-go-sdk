@@ -9,10 +9,10 @@ type ContractsModel struct {
 	FundingQuoteSymbol string `json:"fundingQuoteSymbol"`
 	FundingRateSymbol  string `json:"fundingRateSymbol"`
 	IndexSymbol        string `json:"indexSymbol"`
-	IsDeleverage       bool `json:"isDeleverage"`
+	IsDeleverage       bool   `json:"isDeleverage"`
 	InitialMargin      string `json:"baseCurrency"`
-	IsInverse          bool `json:"isInverse"`
-	IsQuanto           bool `json:"isQuanto"`
+	IsInverse          bool   `json:"isInverse"`
+	IsQuanto           bool   `json:"isQuanto"`
 	LotSize            string `json:"lotSize"`
 	MaintainMargin     string `json:"maintainMargin"`
 	MakerFeeRate       string `json:"makerFeeRate"`

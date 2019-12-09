@@ -24,7 +24,7 @@ func TestApiService_TickerLevel1(t *testing.T) {
 		t.Error("Empty key 'Symbol'")
 	case tk.BestBidPrice == "":
 		t.Error("Empty key 'bestBidPrice'")
-	case tk.BestBidSize <= 0 :
+	case tk.BestBidSize <= 0:
 		t.Error("Empty key 'bestBidSize'")
 	case tk.BestAskPrice == "":
 		t.Error("Empty key 'bestAskPrice'")
@@ -60,7 +60,6 @@ func TestApiService_Level2Snapshot(t *testing.T) {
 	}
 }
 
-
 func TestApiService_Level2MessageQuery(t *testing.T) {
 	s := NewApiServiceFromEnv()
 	rsp, err := s.Level2MessageQuery("XBTUSDM", 1, 20)
@@ -84,8 +83,6 @@ func TestApiService_Level2MessageQuery(t *testing.T) {
 	}
 }
 
-
-
 func TestApiService_Level3Snapshot(t *testing.T) {
 	s := NewApiServiceFromEnv()
 	rsp, err := s.Level3Snapshot("XBTUSDM")
@@ -99,7 +96,7 @@ func TestApiService_Level3Snapshot(t *testing.T) {
 	t.Log(ToJsonString(tk))
 
 	if tk.Sequence <= 0 {
-			t.Error("Empty key 'sequence'")
+		t.Error("Empty key 'sequence'")
 	}
 	//switch {
 	//case tk.Sequence <= 0:
@@ -116,7 +113,6 @@ func TestApiService_Level3Snapshot(t *testing.T) {
 	//	t.Error("Invalid bid length")
 	//}
 }
-
 
 func TestApiService_Level3MessageQuery(t *testing.T) {
 	s := NewApiServiceFromEnv()
@@ -140,7 +136,6 @@ func TestApiService_Level3MessageQuery(t *testing.T) {
 		}
 	}
 }
-
 
 func TestApiService_TradeHistory(t *testing.T) {
 	s := NewApiServiceFromEnv()
@@ -198,7 +193,6 @@ func TestApiService_InterestQuery(t *testing.T) {
 	}
 }
 
-
 func TestApiService_IndexQuery(t *testing.T) {
 	s := NewApiServiceFromEnv()
 	p := map[string]string{}
@@ -250,7 +244,6 @@ func TestApiService_MarkPrice(t *testing.T) {
 	}
 }
 
-
 func TestApiService_PremiumQuery(t *testing.T) {
 	s := NewApiServiceFromEnv()
 	p := map[string]string{}
@@ -278,7 +271,6 @@ func TestApiService_PremiumQuery(t *testing.T) {
 		}
 	}
 }
-
 
 func TestApiService_FundingRate(t *testing.T) {
 	s := NewApiServiceFromEnv()

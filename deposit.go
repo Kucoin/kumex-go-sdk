@@ -13,7 +13,6 @@ type DepositAddressModel struct {
 // A DepositAddressesModel is the set of *DepositAddressModel.
 type DepositAddressesModel []*DepositAddressModel
 
-
 // DepositAddresses returns the deposit address of currency for deposit.
 // If return data is empty, you may need create a deposit address first.
 func (as *ApiService) DepositAddresses(currency string) (*ApiResponse, error) {

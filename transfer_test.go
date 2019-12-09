@@ -57,7 +57,6 @@ func TestApiService_TransferList(t *testing.T) {
 	}
 }
 
-
 func TestApiService_CancelTransfer(t *testing.T) {
 	t.SkipNow()
 

@@ -13,8 +13,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sirupsen/logrus"
 	"github.com/json-iterator/go"
+	"github.com/sirupsen/logrus"
 )
 
 // A Request represents a HTTP request.
@@ -210,9 +210,9 @@ const (
 // An ApiResponse represents a API response wrapped Response.
 type ApiResponse struct {
 	response *Response
-	Code     string          `json:"code"`
+	Code     string              `json:"code"`
 	RawData  jsoniter.RawMessage `json:"data"` // delay parsing
-	Message  string          `json:"msg"`
+	Message  string              `json:"msg"`
 }
 
 // HttpSuccessful judges the success of http.

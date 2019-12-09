@@ -185,9 +185,9 @@ func (as *ApiService) PremiumQuery(params map[string]string, pagination *Paginat
 }
 
 type FundingRateModel struct {
-	Symbol         string `json:"symbol"`
-	Granularity    int64 `json:"granularity"`
-	TimePoint      int64 `json:"timePoint"`
+	Symbol         string  `json:"symbol"`
+	Granularity    int64   `json:"granularity"`
+	TimePoint      int64   `json:"timePoint"`
 	Value          float32 `json:"value"`
 	PredictedValue float32 `json:"predictedValue"`
 }

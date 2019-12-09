@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"github.com/Kucoin/kumex-go-sdk"
+	"log"
 )
 
 func main() {
@@ -15,7 +15,8 @@ func main() {
 	serverTime(s)
 	accounts(s)
 	orders(s)
-	//websocket(s)
+	websocket(s)
+
 }
 
 func serverTime(s *kumex.ApiService) {
