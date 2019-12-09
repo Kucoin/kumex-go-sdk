@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/Kucoin/kumex-go-sdk"
 	"log"
+
+	"github.com/Kucoin/kumex-go-sdk"
 )
 
 func main() {
