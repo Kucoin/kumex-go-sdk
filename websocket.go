@@ -65,6 +65,8 @@ const (
 	UnsubscribeMessage = "unsubscribe"
 	ErrorMessage       = "error"
 	Message            = "message"
+	Notice             = "notice"
+	Command            = "command"
 )
 
 // A WebSocketMessage represents a message between the WebSocket client and server.
@@ -253,7 +255,7 @@ func (wc *WebSocketClient) read() {
 			case ErrorMessage:
 				wc.errors <- errors.Errorf("Error message: %s", ToJsonString(m))
 				return
-			case Message:
+			case Message, Notice, Command:
 				wc.messages <- m
 			default:
 				wc.errors <- errors.Errorf("Unknown message type: %s", m.Type)
