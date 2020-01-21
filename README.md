@@ -141,6 +141,8 @@ if err := rsp.ReadData(tk); err != nil {
 }
 
 c := s.NewWebSocketClient(tk)
+// c.AcceptUserMessage = true 
+
 
 mc, ec, err := c.Connect()
 if err != nil {
