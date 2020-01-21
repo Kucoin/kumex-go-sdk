@@ -17,6 +17,7 @@ func main() {
 	accounts(s)
 	orders(s)
 	websocket(s)
+	privateWebsocket(s)
 
 }
 
@@ -80,6 +81,7 @@ func websocket(s *kumex.ApiService) {
 	}
 
 	tk := &kumex.WebSocketTokenModel{}
+	// tk.AcceptUserMessage = true
 	if err := rsp.ReadData(tk); err != nil {
 		// Handle error
 		return
@@ -93,16 +95,15 @@ func websocket(s *kumex.ApiService) {
 		return
 	}
 
-	ch1 := kumex.NewSubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
-	ch2 := kumex.NewSubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
-	uch := kumex.NewUnsubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
+	ch1 := kumex.NewSubscribeMessage("/contractMarket/level2:XBTUSDM", false)
+	ch2 := kumex.NewSubscribeMessage("/contractMarket/level3:XBTUSDM", false)
+	//uch := kumex.NewUnsubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
 
 	if err := c.Subscribe(ch1, ch2); err != nil {
 		// Handle error
 		return
 	}
 
-	var i = 0
 	for {
 		select {
 		case err := <-ec:
@@ -111,35 +112,52 @@ func websocket(s *kumex.ApiService) {
 			// Handle error
 			return
 		case msg := <-mc:
-			// log.Printf("Received: %s", kumex.ToJsonString(m))
-			t := &kumex.TickerLevel1Model{}
-			if err := msg.ReadData(t); err != nil {
-				log.Printf("Failure to read: %s", err.Error())
-				return
-			}
-			log.Printf("Ticker: %s, %s, %s, %s", msg.Topic, t.Sequence, t.Price, t.Size)
-			i++
-			if i == 5 {
-				log.Println("Unsubscribe XBTUSDM")
-				if err = c.Unsubscribe(uch); err != nil {
-					log.Printf("Error: %s", err.Error())
-					// Handle error
-					return
-				}
-			}
-			if i == 10 {
-				log.Println("Subscribe XBTUSDM")
-				if err = c.Subscribe(ch2); err != nil {
-					log.Printf("Error: %s", err.Error())
-					// Handle error
-					return
-				}
-			}
-			if i == 15 {
-				log.Println("Exit subscription")
-				c.Stop() // Stop subscribing the WebSocket feed
-				return
-			}
+			log.Printf("Received: %s", kumex.ToJsonString(msg))
+		}
+	}
+}
+
+func privateWebsocket(s *kumex.ApiService) {
+	rsp, err := s.WebSocketPrivateToken()
+	if err != nil {
+		// Handle error
+		return
+	}
+
+	tk := &kumex.WebSocketTokenModel{}
+	tk.AcceptUserMessage = true
+	if err := rsp.ReadData(tk); err != nil {
+		// Handle error
+		return
+	}
+	c := s.NewWebSocketClient(tk)
+
+	mc, ec, err := c.Connect()
+	if err != nil {
+		// Handle error
+		return
+	}
+
+	ch1 := kumex.NewSubscribeMessage("/contract/position:XBTUSDM", false)
+	ch2 := kumex.NewSubscribeMessage("/contractAccount/wallet", false)
+
+	log.Println(kumex.ToJsonString(ch1))
+	log.Println(kumex.ToJsonString(ch2))
+
+	if err := c.Subscribe(ch1, ch2); err != nil {
+		// Handle error
+		return
+	}
+
+	for {
+		select {
+		case err := <-ec:
+			c.Stop() // Stop subscribing the WebSocket feed
+			log.Printf("Error: %s", err.Error())
+			// Handle error
+			return
+		case msg := <-mc:
+			log.Printf("Received: %s", kumex.ToJsonString(msg))
 		}
 	}
 }

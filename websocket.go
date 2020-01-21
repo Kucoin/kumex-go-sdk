@@ -17,8 +17,9 @@ import (
 
 // A WebSocketTokenModel contains a token and some servers for WebSocket feed.
 type WebSocketTokenModel struct {
-	Token   string                `json:"token"`
-	Servers WebSocketServersModel `json:"instanceServers"`
+	Token             string                `json:"token"`
+	Servers           WebSocketServersModel `json:"instanceServers"`
+	AcceptUserMessage bool                  `json:"accept_user_message"`
 }
 
 // A WebSocketServerModel contains some servers for WebSocket feed.
@@ -180,6 +181,9 @@ func (wc *WebSocketClient) Connect() (<-chan *WebSocketDownstreamMessage, <-chan
 	q := url.Values{}
 	q.Add("connectId", IntToString(time.Now().UnixNano()))
 	q.Add("token", wc.token.Token)
+	if wc.token.AcceptUserMessage == true {
+		q.Add("acceptUserMessage", "true")
+	}
 	u := fmt.Sprintf("%s?%s", s.Endpoint, q.Encode())
 
 	// Ignore verify tls
