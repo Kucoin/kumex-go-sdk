@@ -16,7 +16,7 @@ func main() {
 	serverTime(s)
 	accounts(s)
 	orders(s)
-	websocket(s)
+	publicWebsocket(s)
 	privateWebsocket(s)
 
 }
@@ -73,7 +73,7 @@ func orders(s *kumex.ApiService) {
 		log.Printf("Order: %s, %s, %s", o.Id, o.Type, o.Price)
 	}
 }
-func websocket(s *kumex.ApiService) {
+func publicWebsocket(s *kumex.ApiService) {
 	rsp, err := s.WebSocketPublicToken()
 	if err != nil {
 		// Handle error
@@ -81,7 +81,6 @@ func websocket(s *kumex.ApiService) {
 	}
 
 	tk := &kumex.WebSocketTokenModel{}
-	// tk.AcceptUserMessage = true
 	if err := rsp.ReadData(tk); err != nil {
 		// Handle error
 		return
