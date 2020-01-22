@@ -6,13 +6,13 @@ import (
 
 // An AccountModel represents an account.
 type AccountModel struct {
-	AccountEquity    string `json:"accountEquity"`
-	UnrealisedPNL    string `json:"unrealisedPNL"`
-	MarginBalance    string `json:"marginBalance"`
-	PositionMargin   string `json:"positionMargin"`
-	OrderMargin      string `json:"orderMargin"`
-	FrozenFunds      string `json:"frozenFunds"`
-	AvailableBalance string `json:"availableBalance"`
+	AccountEquity    float64 `json:"accountEquity"`
+	UnrealisedPNL    float64 `json:"unrealisedPNL"`
+	MarginBalance    float64 `json:"marginBalance"`
+	PositionMargin   float64 `json:"positionMargin"`
+	OrderMargin      float64 `json:"orderMargin"`
+	FrozenFunds      float64 `json:"frozenFunds"`
+	AvailableBalance float64 `json:"availableBalance"`
 }
 
 // An AccountsModel is the set of *AccountModel.

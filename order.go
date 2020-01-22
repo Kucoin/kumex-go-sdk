@@ -52,10 +52,10 @@ type OrderModel struct {
 	Type          string `json:"type"`
 	Side          string `json:"side"`
 	Price         string `json:"price"`
-	Size          string `json:"size"`
+	Size          int64  `json:"size"`
 	Value         string `json:"value"`
 	DealValue     string `json:"dealValue"`
-	DealSize      string `json:"dealSize"`
+	DealSize      int64  `json:"dealSize"`
 	Stp           string `json:"stp"`
 	Stop          string `json:"stop"`
 	StopPriceType string `json:"stopPriceType"`
