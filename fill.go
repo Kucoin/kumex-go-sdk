@@ -4,22 +4,22 @@ import "net/http"
 
 // A FillModel represents the structure of fill.
 type FillModel struct {
-	Symbol      string `json:"symbol"`
-	TradeId     string `json:"tradeId"`
-	OrderId     string `json:"orderId"`
-	Side        string `json:"side"`
-	Liquidity   string `json:"liquidity"`
-	Price       string `json:"price"`
-	Size        string `json:"size"`
-	Value       string `json:"value"`
-	FeeRate     string `json:"feeRate"`
-	FixFee      string `json:"fixFee"`
-	FeeCurrency string `json:"feeCurrency"`
-	Stop        string `json:"stop"`
-	Fee         string `json:"fee"`
-	OrderType   string `json:"orderType"`
-	TradeType   string `json:"tradeType"`
-	CreatedAt   int64  `json:"createdAt"`
+	Symbol      string  `json:"symbol"`
+	TradeId     string  `json:"tradeId"`
+	OrderId     string  `json:"orderId"`
+	Side        string  `json:"side"`
+	Liquidity   string  `json:"liquidity"`
+	Price       string  `json:"price"`
+	Size        float32 `json:"size"`
+	Value       string  `json:"value"`
+	FeeRate     string  `json:"feeRate"`
+	FixFee      string  `json:"fixFee"`
+	FeeCurrency string  `json:"feeCurrency"`
+	Stop        string  `json:"stop"`
+	Fee         string  `json:"fee"`
+	OrderType   string  `json:"orderType"`
+	TradeType   string  `json:"tradeType"`
+	CreatedAt   int64   `json:"createdAt"`
 }
 
 // A FillsModel is the set of *FillModel.

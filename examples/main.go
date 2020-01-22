@@ -44,15 +44,13 @@ func accounts(s *kumex.ApiService) {
 		return
 	}
 
-	as := kumex.AccountsModel{}
+	as := kumex.AccountModel{}
 	if err := rsp.ReadData(&as); err != nil {
+		log.Println(err)
 		// Handle error
 		return
 	}
-
-	for _, a := range as {
-		log.Printf("Available balance: %s %s => %s", a.AccountEquity, a.OrderMargin, a.AvailableBalance)
-	}
+	log.Printf("Available balance: %f %f => %f", as.AccountEquity, as.OrderMargin, as.AvailableBalance)
 }
 
 func orders(s *kumex.ApiService) {
@@ -94,7 +92,7 @@ func publicWebsocket(s *kumex.ApiService) {
 		return
 	}
 
-	ch1 := kumex.NewSubscribeMessage("/contractMarket/level2:XBTUSDM", false)
+	ch1 := kumex.NewSubscribeMessage("/contract/instrument:XBTUSDM", false)
 	ch2 := kumex.NewSubscribeMessage("/contractMarket/level3:XBTUSDM", false)
 	//uch := kumex.NewUnsubscribeMessage("/contractMarket/ticker:XBTUSDM", false)
 

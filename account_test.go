@@ -18,19 +18,17 @@ func TestApiService_AccountOverview(t *testing.T) {
 	}
 	t.Log(ToJsonString(o))
 	switch {
-	case o.AccountEquity == "":
+	case o.AccountEquity == 0:
 		t.Error("Empty key 'accountEquity'")
-	case o.UnrealisedPNL == "":
-		t.Error("Empty key 'unrealisedPNL'")
-	case o.MarginBalance == "":
+	case o.MarginBalance < 0:
 		t.Error("Empty key 'marginBalance'")
-	case o.PositionMargin == "":
+	case o.PositionMargin < 0:
 		t.Error("Empty key 'positionMargin'")
-	case o.OrderMargin == "":
+	case o.OrderMargin < 0:
 		t.Error("Empty key 'orderMargin'")
-	case o.FrozenFunds == "":
+	case o.FrozenFunds < 0:
 		t.Error("Empty key 'frozenFunds'")
-	case o.AvailableBalance == "":
+	case o.AvailableBalance <= 0:
 		t.Error("Empty key 'availableBalance'")
 	}
 }
