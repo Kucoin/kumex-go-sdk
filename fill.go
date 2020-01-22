@@ -10,7 +10,7 @@ type FillModel struct {
 	Side        string  `json:"side"`
 	Liquidity   string  `json:"liquidity"`
 	Price       string  `json:"price"`
-	Size        float32 `json:"size"`
+	Size        float64 `json:"size"`
 	Value       string  `json:"value"`
 	FeeRate     string  `json:"feeRate"`
 	FixFee      string  `json:"fixFee"`

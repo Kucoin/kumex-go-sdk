@@ -255,11 +255,7 @@ func (wc *WebSocketClient) read() {
 			case ErrorMessage:
 				wc.errors <- errors.Errorf("Error message: %s", ToJsonString(m))
 				return
-			case Message:
-				wc.messages <- m
-			case Notice:
-				wc.messages <- m
-			case Command:
+			case Message, Notice, Command:
 				wc.messages <- m
 			default:
 				wc.errors <- errors.Errorf("Unknown message type: %s", m.Type)
