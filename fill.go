@@ -4,22 +4,24 @@ import "net/http"
 
 // A FillModel represents the structure of fill.
 type FillModel struct {
-	Symbol      string  `json:"symbol"`
-	TradeId     string  `json:"tradeId"`
-	OrderId     string  `json:"orderId"`
-	Side        string  `json:"side"`
-	Liquidity   string  `json:"liquidity"`
-	Price       string  `json:"price"`
-	Size        float64 `json:"size"`
-	Value       string  `json:"value"`
-	FeeRate     string  `json:"feeRate"`
-	FixFee      string  `json:"fixFee"`
-	FeeCurrency string  `json:"feeCurrency"`
-	Stop        string  `json:"stop"`
-	Fee         string  `json:"fee"`
-	OrderType   string  `json:"orderType"`
-	TradeType   string  `json:"tradeType"`
-	CreatedAt   int64   `json:"createdAt"`
+	Symbol         string  `json:"symbol"`
+	TradeId        string  `json:"tradeId"`
+	OrderId        string  `json:"orderId"`
+	Side           string  `json:"side"`
+	Liquidity      string  `json:"liquidity"`
+	Price          string  `json:"price"`
+	Size           float64 `json:"size"`
+	Value          string  `json:"value"`
+	FeeRate        string  `json:"feeRate"`
+	FixFee         string  `json:"fixFee"`
+	FeeCurrency    string  `json:"feeCurrency"`
+	Stop           string  `json:"stop"`
+	Fee            string  `json:"fee"`
+	OrderType      string  `json:"orderType"`
+	TradeType      string  `json:"tradeType"`
+	CreatedAt      int64   `json:"createdAt"`
+	SettleCurrency string  `json:"settleCurrency"`
+	TradeTime      int64   `json:"tradeTime"`
 }
 
 // A FillsModel is the set of *FillModel.
@@ -40,10 +42,11 @@ func (as *ApiService) RecentFills() (*ApiResponse, error) {
 
 // A OpenOrderStatisticsModel represents the struct of fill.
 type OpenOrderStatisticsModel struct {
-	OpenOrderBuySize  string `json:"openOrderBuySize"`
-	OpenOrderSellSize string `json:"openOrderSellSize"`
+	OpenOrderBuySize  int32  `json:"openOrderBuySize"`
+	OpenOrderSellSize int32  `json:"openOrderSellSize"`
 	OpenOrderBuyCost  string `json:"openOrderBuyCost"`
 	OpenOrderSellCost string `json:"openOrderSellCost"`
+	SettleCurrency    string `json:"settleCurrency"`
 }
 
 // OpenOrderStatistics Active Order Value Calculation.

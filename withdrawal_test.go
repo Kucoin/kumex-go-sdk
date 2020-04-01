@@ -75,6 +75,10 @@ func TestApiService_ApplyWithdrawal(t *testing.T) {
 	t.SkipNow()
 
 	s := NewApiServiceFromEnv()
+	p := map[string]string{}
+	p["remark"] = "XBT"
+	p["chain"] = "ERC20"
+	p["memo"] = "kcz123"
 	rsp, err := s.ApplyWithdrawal("XBT", "xx", "0.01", map[string]string{})
 	if err != nil {
 		t.Fatal(err)

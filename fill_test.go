@@ -27,6 +27,10 @@ func TestApiService_Fills(t *testing.T) {
 			t.Error("Empty key 'orderId'")
 		case f.Side == "":
 			t.Error("Empty key 'side'")
+		case f.SettleCurrency == "":
+			t.Error("Empty key 'settleCurrency'")
+		case f.TradeTime == 0:
+			t.Error("Empty key 'tradeTime'")
 		}
 	}
 }
@@ -53,6 +57,37 @@ func TestApiService_RecentFills(t *testing.T) {
 			t.Error("Empty key 'orderId'")
 		case f.Side == "":
 			t.Error("Empty key 'side'")
+		case f.SettleCurrency == "":
+			t.Error("Empty key 'settleCurrency'")
+		case f.TradeTime == 0:
+			t.Error("Empty key 'tradeTime'")
 		}
+	}
+}
+
+func TestApiService_OpenOrderStatistics(t *testing.T) {
+	t.SkipNow()
+
+	s := NewApiServiceFromEnv()
+	rsp, err := s.OpenOrderStatistics("XBTUSDM")
+	if err != nil {
+		t.Fatal(err)
+	}
+	o := &OpenOrderStatisticsModel{}
+	if err := rsp.ReadData(o); err != nil {
+		t.Fatal(err)
+	}
+	t.Log(ToJsonString(o))
+	switch {
+	case o.OpenOrderBuySize < 0:
+		t.Error("Empty key 'OpenOrderBuySize'")
+	case o.OpenOrderSellSize < 0:
+		t.Error("Empty key 'OpenOrderSellSize'")
+	case o.OpenOrderBuyCost == "":
+		t.Error("Empty key 'OpenOrderBuyCost'")
+	case o.OpenOrderSellCost == "":
+		t.Error("Empty key 'OpenOrderSellCost'")
+	case o.SettleCurrency == "":
+		t.Error("Empty key 'SettleCurrency'")
 	}
 }

@@ -290,7 +290,7 @@ func TestApiService_FundingRate(t *testing.T) {
 		t.Error("Empty key 'timePoint'")
 	case tk.Symbol == "":
 		t.Error("Empty key 'symbol'")
-	case tk.PredictedValue <= 0:
+	case tk.PredictedValue == 0:
 		t.Error("Empty key 'predictedValue'")
 	}
 }

@@ -118,10 +118,14 @@ func NewApiService(opts ...ApiServiceOption) *ApiService {
 // NewApiServiceFromEnv creates a instance of ApiService by environmental variables such as `API_BASE_URI` `API_KEY` `API_SECRET` `API_PASSPHRASE`, then you can call the methods of ApiService.
 func NewApiServiceFromEnv() *ApiService {
 	return NewApiService(
-		ApiBaseURIOption(os.Getenv("API_BASE_URI")),
-		ApiKeyOption(os.Getenv("API_KEY")),
-		ApiSecretOption(os.Getenv("API_SECRET")),
-		ApiPassPhraseOption(os.Getenv("API_PASSPHRASE")),
+		ApiBaseURIOption("https://sandbox-api.kumex.com"),
+		ApiKeyOption("5d27fad1ef83c7206c39ea94"),
+		ApiSecretOption("8428e2a7-dd18-4c71-acd1-feface4088fd"),
+		ApiPassPhraseOption("123456789"),
+		//ApiBaseURIOption(os.Getenv("API_BASE_URI")),
+		//ApiKeyOption(os.Getenv("API_KEY")),
+		//ApiSecretOption(os.Getenv("API_SECRET")),
+		//ApiPassPhraseOption(os.Getenv("API_PASSPHRASE")),
 		ApiSkipVerifyTlsOption(os.Getenv("API_SKIP_VERIFY_TLS") == "1"),
 	)
 }

@@ -13,6 +13,7 @@ type AccountModel struct {
 	OrderMargin      float64 `json:"orderMargin"`
 	FrozenFunds      float64 `json:"frozenFunds"`
 	AvailableBalance float64 `json:"availableBalance"`
+	Currency         string  `json:"currency"`
 }
 
 // An AccountsModel is the set of *AccountModel.
@@ -20,8 +21,8 @@ type AccountsModel []*AccountModel
 
 // AccountOverview returns a list of accounts.
 // See the Deposits section for documentation on how to deposit funds to begin trading.
-func (as *ApiService) AccountOverview() (*ApiResponse, error) {
-	req := NewRequest(http.MethodGet, "/api/v1/account-overview", nil)
+func (as *ApiService) AccountOverview(params map[string]string) (*ApiResponse, error) {
+	req := NewRequest(http.MethodGet, "/api/v1/account-overview", params)
 	return as.Call(req)
 }
 
@@ -35,6 +36,7 @@ type TransactionHistoryModel struct {
 	Status        string `json:"status"`
 	Remarks       string `json:"remark"`
 	Offset        string `json:"offset"`
+	Currency      string `json:"currency"`
 }
 
 // An TransactionHistoryListModel the set of *TransactionHistoryModel.

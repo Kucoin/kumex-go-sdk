@@ -19,7 +19,7 @@ import (
 type WebSocketTokenModel struct {
 	Token             string                `json:"token"`
 	Servers           WebSocketServersModel `json:"instanceServers"`
-	AcceptUserMessage bool                  `json:"accept_user_message"`
+	AcceptUserMessage bool                  `json:"acceptUserMessage"`
 }
 
 // A WebSocketServerModel contains some servers for WebSocket feed.

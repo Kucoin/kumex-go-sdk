@@ -17,6 +17,22 @@ func (as *ApiService) TransferOut(bizNo, amount string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
+// A TransferOutModel represents a transfer out record.
+type TransferOutV2Model struct {
+	ApplyId string `json:"applyId"`
+}
+
+// TransferOut Transfer Funds to KuCoin-Main Account.
+func (as *ApiService) TransferOutV2(bizNo, amount string, currency string) (*ApiResponse, error) {
+	p := map[string]string{
+		"bizNo":    bizNo,
+		"amount":   amount,
+		"currency": currency,
+	}
+	req := NewRequest(http.MethodPost, "/api/v2/transfer-out", p)
+	return as.Call(req)
+}
+
 // A TransferModel represents a transfer record.
 type TransferModel struct {
 	ApplyId   string `json:"applyId"`

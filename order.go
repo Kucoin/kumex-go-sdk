@@ -47,34 +47,37 @@ func (as *ApiService) StopOrders(symbol string) (*ApiResponse, error) {
 
 // An OrderModel represents an order.
 type OrderModel struct {
-	Id            string `json:"id"`
-	Symbol        string `json:"symbol"`
-	Type          string `json:"type"`
-	Side          string `json:"side"`
-	Price         string `json:"price"`
-	Size          int64  `json:"size"`
-	Value         string `json:"value"`
-	DealValue     string `json:"dealValue"`
-	DealSize      int64  `json:"dealSize"`
-	Stp           string `json:"stp"`
-	Stop          string `json:"stop"`
-	StopPriceType string `json:"stopPriceType"`
-	StopTriggered bool   `json:"stopTriggered"`
-	StopPrice     string `json:"stopPrice"`
-	TimeInForce   string `json:"timeInForce"`
-	PostOnly      bool   `json:"postOnly"`
-	Hidden        bool   `json:"hidden"`
-	IceBerg       bool   `json:"iceberg"`
-	VisibleSize   string `json:"visibleSize"`
-	Leverage      string `json:"leverage"`
-	ForceHold     bool   `json:"forceHold"`
-	CloseOrder    bool   `json:"closeOrder"`
-	CloseOnly     bool   `json:"closeOnly"`
-	ClientOid     string `json:"clientOid"`
-	Remark        string `json:"remark"`
-	IsActive      bool   `json:"isActive"`
-	CancelExist   bool   `json:"cancelExist"`
-	CreatedAt     int64  `json:"createdAt"`
+	Id             string `json:"id"`
+	Symbol         string `json:"symbol"`
+	Type           string `json:"type"`
+	Side           string `json:"side"`
+	Price          string `json:"price"`
+	Size           int64  `json:"size"`
+	Value          string `json:"value"`
+	DealValue      string `json:"dealValue"`
+	DealSize       int64  `json:"dealSize"`
+	Stp            string `json:"stp"`
+	Stop           string `json:"stop"`
+	StopPriceType  string `json:"stopPriceType"`
+	StopTriggered  bool   `json:"stopTriggered"`
+	StopPrice      string `json:"stopPrice"`
+	TimeInForce    string `json:"timeInForce"`
+	PostOnly       bool   `json:"postOnly"`
+	Hidden         bool   `json:"hidden"`
+	IceBerg        bool   `json:"iceberg"`
+	VisibleSize    string `json:"visibleSize"`
+	Leverage       string `json:"leverage"`
+	ForceHold      bool   `json:"forceHold"`
+	CloseOrder     bool   `json:"closeOrder"`
+	CloseOnly      bool   `json:"closeOnly"`
+	ClientOid      string `json:"clientOid"`
+	Remark         string `json:"remark"`
+	IsActive       bool   `json:"isActive"`
+	CancelExist    bool   `json:"cancelExist"`
+	CreatedAt      int64  `json:"createdAt"`
+	UpdatedAt      int64  `json:"updatedAt"`
+	SettleCurrency string `json:"settleCurrency"`
+	Status         string `json:"status"`
 }
 
 // A OrdersModel is the set of *OrderModel.

@@ -241,6 +241,7 @@ for {
 | API | Authentication | Description |
 | -------- | -------- | -------- |
 | ApiService.TransferOut() | YES | https://docs.kumex.com/#transfer-out |
+| ApiService.TransferOutV2() | YES | https://docs.kumex.com/#transfer-funds-to-kucoin-main-account |
 | ApiService.TransferList() | YES | https://docs.kumex.com/#get-transfer-list |
 | ApiService.CancelTransfer() | YES | https://docs.kumex.com/#cancel-transfer |
 
@@ -279,7 +280,7 @@ for {
 | -------- | -------- | -------- |
 | ApiService.Ticker() | NO | https://docs.kumex.com/#get-real-time-ticker |
 | ApiService.Level2Snapshot() | NO | https://docs.kumex.com/#get-full-order-book-level-2 |
-| ApiService.Level2MessageQuery() | NO | https://docs.kumex.com/#level-2-pulling-messages |
+| ApiService.Level2MessageQuery()() | NO | https://docs.kumex.com/#level-2-pulling-messages |
 | ApiService.Level3Snapshot() | NO | https://docs.kumex.com/#get-full-order-book-level-3 |
 | ApiService.Level3MessageQuery() | NO | https://docs.kumex.com/#level-3-pulling-messages|
 | ApiService.TradeHistory() | NO | https://docs.kumex.com/#transaction-history |

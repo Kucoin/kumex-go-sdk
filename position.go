@@ -41,6 +41,7 @@ type PositionModel struct {
 	AvgEntryPrice     string `json:"avgEntryPrice"`
 	LiquidationPrice  string `json:"liquidationPrice"`
 	BankruptPrice     string `json:"bankruptPrice"`
+	SettleCurrency    string `json:"settleCurrency"`
 }
 
 // Position Get Position Details.

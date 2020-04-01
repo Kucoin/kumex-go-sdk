@@ -27,6 +27,8 @@ func TestApiService_Position(t *testing.T) {
 		t.Error("Empty key 'markPrice'")
 	case o.MarkValue == "":
 		t.Error("Empty key 'markValue'")
+	case o.SettleCurrency == "":
+		t.Error("Empty key 'SettleCurrency'")
 	}
 }
 
@@ -52,6 +54,8 @@ func TestApiService_Positions(t *testing.T) {
 		t.Error("Empty key 'markPrice'")
 	case o.MarkValue == "":
 		t.Error("Empty key 'markValue'")
+	case o.SettleCurrency == "":
+		t.Error("Empty key 'SettleCurrency'")
 	}
 }
 
