@@ -38,7 +38,9 @@ func serverTime(s *kumex.ApiService) {
 }
 
 func accounts(s *kumex.ApiService) {
-	rsp, err := s.AccountOverview()
+	p := map[string]string{}
+	p["currency"] = "XBT"
+	rsp, err := s.AccountOverview(p)
 	if err != nil {
 		// Handle error
 		return
