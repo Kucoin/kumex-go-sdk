@@ -24,6 +24,8 @@ func TestApiService_ActiveContracts(t *testing.T) {
 		t.Error("Empty key 'fairMethod'")
 	case o.IndexSymbol == "":
 		t.Error("Empty key 'indexSymbol'")
+	case o.MaxLeverage < 0:
+		t.Error("Empty key 'maxLeverage'")
 	}
 }
 
@@ -49,5 +51,7 @@ func TestApiService_Contracts(t *testing.T) {
 		t.Error("Empty key 'fairMethod'")
 	case o.IndexSymbol == "":
 		t.Error("Empty key 'indexSymbol'")
+	case o.MaxLeverage < 0:
+		t.Error("Empty key 'maxLeverage'")
 	}
 }

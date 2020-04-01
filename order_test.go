@@ -92,6 +92,12 @@ func TestApiService_Orders(t *testing.T) {
 			t.Error("Empty key 'type'")
 		case o.Side == "":
 			t.Error("Empty key 'side'")
+		case o.SettleCurrency == "":
+			t.Error("Empty key 'settleCurrency'")
+		case o.Status == "":
+			t.Error("Empty key 'status'")
+		case o.UpdatedAt == 0:
+			t.Error("Empty key 'UpdatedAt'")
 		}
 	}
 }
@@ -132,6 +138,12 @@ func TestApiService_Order(t *testing.T) {
 		t.Error("Empty key 'type'")
 	case o.Side == "":
 		t.Error("Empty key 'side'")
+	case o.SettleCurrency == "":
+		t.Error("Empty key 'settleCurrency'")
+	case o.Status == "":
+		t.Error("Empty key 'status'")
+	case o.UpdatedAt == 0:
+		t.Error("Empty key 'UpdatedAt'")
 	}
 }
 
@@ -157,6 +169,12 @@ func TestApiService_RecentOrders(t *testing.T) {
 			t.Error("Empty key 'type'")
 		case o.Side == "":
 			t.Error("Empty key 'side'")
+		case o.SettleCurrency == "":
+			t.Error("Empty key 'settleCurrency'")
+		case o.Status == "":
+			t.Error("Empty key 'status'")
+		case o.UpdatedAt == 0:
+			t.Error("Empty key 'UpdatedAt'")
 		}
 	}
 }

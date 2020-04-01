@@ -26,6 +26,8 @@ func TestApiService_FundingHistory(t *testing.T) {
 			t.Error("Empty key 'fundingRate'")
 		case o.Funding == 0:
 			t.Error("Empty key 'funding'")
+		case o.SettleCurrency == "":
+			t.Error("Empty key 'settleCurrency'")
 		}
 	}
 }

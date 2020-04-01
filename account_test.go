@@ -8,7 +8,10 @@ func TestApiService_AccountOverview(t *testing.T) {
 	t.SkipNow()
 
 	s := NewApiServiceFromEnv()
-	rsp, err := s.AccountOverview()
+	p := map[string]string{}
+	p["currency"] = "XBT"
+
+	rsp, err := s.AccountOverview(p)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -30,6 +33,8 @@ func TestApiService_AccountOverview(t *testing.T) {
 		t.Error("Empty key 'frozenFunds'")
 	case o.AvailableBalance <= 0:
 		t.Error("Empty key 'availableBalance'")
+	case o.Currency == "":
+		t.Error("Empty key 'currency'")
 	}
 }
 
