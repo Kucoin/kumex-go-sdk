@@ -23,7 +23,7 @@ type TransferOutV2Model struct {
 }
 
 // TransferOut Transfer Funds to KuCoin-Main Account.
-func (as *ApiService) TransferOutV2(bizNo, amount string, currency string) (*ApiResponse, error) {
+func (as *ApiService) TransferOutV2(bizNo, amount, currency string) (*ApiResponse, error) {
 	p := map[string]string{
 		"bizNo":    bizNo,
 		"amount":   amount,
