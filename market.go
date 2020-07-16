@@ -73,6 +73,21 @@ func (as *ApiService) Level3Snapshot(symbol string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
+// Level3SnapshotV2Model represents level3 ticker message.
+type Level3SnapshotV2Model struct {
+	Symbol   string          `json:"symbol"`
+	Sequence int             `json:"sequence"`
+	Asks     [][]interface{} `json:"asks"`
+	Bids     [][]interface{} `json:"bids"`
+	Ts       int64           `json:"ts"`
+}
+
+// Level3SnapshotV2 Get Full Order Book - Level 3.
+func (as *ApiService) Level3SnapshotV2(symbol string) (*ApiResponse, error) {
+	req := NewRequest(http.MethodGet, "/api/v2/level3/snapshot", map[string]string{"symbol": symbol})
+	return as.Call(req)
+}
+
 // Level3MessageQueryModel represents level3 ticker message.
 type Level3MessageQueryModel struct {
 	Symbol    string `json:"symbol"`

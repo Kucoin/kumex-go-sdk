@@ -50,6 +50,7 @@ type WithdrawalModel struct {
 	Currency     string `json:"currency"`
 	Status       string `json:"status"`
 	Address      string `json:"address"`
+	Memo         string `json:"memo"`
 	IsInner      bool   `json:"isInner"`
 	Amount       string `json:"amount"`
 	Fee          string `json:"fee"`

@@ -114,6 +114,23 @@ func TestApiService_Level3Snapshot(t *testing.T) {
 	//}
 }
 
+func TestApiService_Level3SnapshotV2(t *testing.T) {
+	s := NewApiServiceFromEnv()
+	rsp, err := s.Level3SnapshotV2("XBTUSDM")
+	if err != nil {
+		t.Fatal(err)
+	}
+	tk := &Level3SnapshotV2Model{}
+	if err := rsp.ReadData(tk); err != nil {
+		t.Fatal(err)
+	}
+	t.Log(ToJsonString(tk))
+
+	if tk.Sequence <= 0 {
+		t.Error("Empty key 'sequence'")
+	}
+}
+
 func TestApiService_Level3MessageQuery(t *testing.T) {
 	s := NewApiServiceFromEnv()
 	rsp, err := s.Level3MessageQuery("XBTUSDM", 1, 20)
