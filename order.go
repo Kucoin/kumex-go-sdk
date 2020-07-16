@@ -96,6 +96,12 @@ func (as *ApiService) Order(orderId string) (*ApiResponse, error) {
 	return as.Call(req)
 }
 
+// Order returns a single order by client Oid.
+func (as *ApiService) OrderByClientOid(clientOid string) (*ApiResponse, error) {
+	req := NewRequest(http.MethodGet, "/api/v1/orders/byClientOid?clientOid="+clientOid, nil)
+	return as.Call(req)
+}
+
 // RecentDoneOrders returns the recent orders of the latest transactions within 24 hours.
 func (as *ApiService) RecentDoneOrders() (*ApiResponse, error) {
 	req := NewRequest(http.MethodGet, "/api/v1/recentDoneOrders", nil)
